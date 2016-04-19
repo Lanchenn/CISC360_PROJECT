@@ -10,7 +10,7 @@
  * of a given connected, undirected and weighted graph.
  *
  * The orinal code is from: 
- * http: //www.geeksforgeeks.org/greedy-algorithms-set-9-boruvkas-algorithm/
+ * http ://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/
  */
 
 
