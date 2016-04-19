@@ -4,8 +4,10 @@
 
 /**
  * GROUP PROJECT CISC360-010
- * PART THREE: Kruskal algorithm structure
+ * Group Member: Lan Chen, Jessica Chen, Xiaomeng Chen and Zhanglong Peng
  *
+ * __________________________________________________________________________
+ * PART THREE: Kruskal algorithm structure
  * Kruskal's algorithm is to find Minimum Spanning Tree
  * of a given connected, undirected and weighted graph.
  *
@@ -14,6 +16,9 @@
  */
 
 
+
+// Structure
+//__________________________________________________________________________
 // a structure to represent a weighted edge in graph
 struct Edge
 {
@@ -39,6 +44,7 @@ struct subset
     int rank;
 };
 
+
 // Creates a graph with V vertices and E edges
 struct Graph* createGraph(int V, int E)
 {
@@ -51,6 +57,13 @@ struct Graph* createGraph(int V, int E)
     return graph;
 }
 
+
+
+
+
+
+// Functions and Methond for SEARCH
+//__________________________________________________________________________
 // Function prototypes for union-find (These functions are defined
 // after KruskalMST() method.
 int find (struct subset subsets[], int i);
@@ -156,17 +169,8 @@ void Union(struct subset subsets[], int x, int y)
 
 
 
-
-
-
-
-
-
-
-
-
-//---------------------------------------
-
+// Main
+//__________________________________________________________________________
 // Driver program to test above functions
 int main()
 {

@@ -1,11 +1,11 @@
 #include <stdio.h>
-//#include <omp.h>
-//static long MULTIPLIER  = 1366;
 
 /**
  * GROUP PROJECT CISC360-010
- * PART ONE: Boruvka algorithm structure
+ * Group Member: Lan Chen, Jessica Chen, Xiaomeng Chen and Zhanglong Peng
  *
+ * __________________________________________________________________________
+ * PART ONE: Boruvka algorithm structure
  * Boruvka's algorithm is to find Minimum Spanning Tree 
  * of a given connected, undirected and weighted graph.
  *
@@ -14,7 +14,8 @@
  */
 
 
-
+// Structure
+//__________________________________________________________________________
 // a structure to represent a weighted edge in graph
 struct Edge
 {
@@ -42,6 +43,10 @@ struct subset
     int rank;
 };
 
+
+
+// Functions and Method for SEARCH
+//__________________________________________________________________________
 // Function prototypes for union-find (These functions are defined
 // after boruvkaMST() )
 int find(struct subset subsets[], int i);
@@ -183,12 +188,8 @@ void Union(struct subset subsets[], int x, int y)
 
 
 
-
-
-
-
-
----------------------------------------------------------------
+// Main
+//__________________________________________________________________________
 // Driver program to test above functions
 int main()
 {
