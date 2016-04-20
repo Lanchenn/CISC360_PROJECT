@@ -8,15 +8,22 @@
 typedef unsigned char vertex;
  
 int main(){
- 
+    int nov, noe;
+    printf("type number of vertices u want: \n");
+    scanf("%d", &nov);
+    printf("type number of edges u want: \n");
+    scanf("%d", &noe);
     /*number of nodes in a graph*/
     srand ( time(NULL) );
-    int numberOfVertices = rand() % MAX_VERTICES;
+    //int numberOfVertices = rand() % MAX_VERTICES;
+    int numberOfVertices = nov;
  
     /*number of maximum edges a vertex can have*/
     srand ( time(NULL) );
-    int maxNumberOfEdges = rand() % MAX_EDGES;
+    //int maxNumberOfEdges = rand() % MAX_EDGES;
     /*graphs is 2 dimensional array of pointers*/
+    int maxNumberOfEdges = noe;
+
     if( numberOfVertices == 0)
         numberOfVertices++;
     vertex ***graph;
