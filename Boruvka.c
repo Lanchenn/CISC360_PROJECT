@@ -1,5 +1,7 @@
 #include <stdio.h>
-#include "Utility.h"
+#include <stdlib.h>
+#include <string.h>
+//#include "Utility.h"
 
 /**
  * GROUP PROJECT CISC360-010
@@ -21,7 +23,7 @@
 struct Edge
 {
     int src, dest, weight;
-};
+};typedef struct Edge Edge;
 
 // a structure to represent a connected, undirected
 // and weighted graph as a collection of edges.
@@ -35,7 +37,7 @@ struct Graph
     // from src to dest is also edge from dest
     // to src. Both are counted as 1 edge here.
     struct Edge* edge;
-};
+}; typedef struct Graph Graph;
 
 // A structure to represent a subset for union-find
 struct subset
@@ -61,11 +63,11 @@ void boruvkaMST(struct Graph* graph)
     Edge *edge = graph->edge;
     
     // Allocate memory for creating V subsets.
-    struct subset *subsets = new subset[V];
+    struct subset *subsets =  (struct subset*) malloc( V * sizeof(struct subset) );
     
     // An array to store index of the cheapest edge of
     // subset.  The stored index for indexing array 'edge[]'
-    int *cheapest = new int[V];
+    int *cheapest = (int *)malloc(sizeof(int) * V);
     
     // Create V subsets with single elements
     for (int v = 0; v < V; ++v)
@@ -180,10 +182,10 @@ void Union(struct subset subsets[], int x, int y)
 // Creates a graph with V vertices and E edges
 struct Graph* createGraph(int V, int E)
 {
-    Graph* graph = new Graph;
+    Graph* graph = (struct Graph*) malloc( sizeof(struct Graph) );
     graph->V = V;
     graph->E = E;
-    graph->edge = new Edge[E];
+    graph->edge = (Edge *)malloc(sizeof(Edge) * E);
     return graph;
 }
 
