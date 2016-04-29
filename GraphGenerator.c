@@ -5,7 +5,90 @@
 #define MAX_VERTICES 30
 #define MAX_EDGES 10
 #define MAX_weight 30
- 
+ ////////////////////////////////////////////////////
+// struct Queue
+// {
+//   int capacity;
+//   int size;
+//   int front;
+//   int rear;
+//   struct vertex *vertices[MAXV];
+// };
+
+
+// struct Queue * createQueue(int maxElements)
+// {
+//   /* Create a Queue */
+//   struct Queue *Q;
+//   Q = malloc(sizeof(struct Queue));
+//   /* Initialise its properties */
+//   for (int i=0; i<maxElements;i++) {
+//     Q->vertices[i] = NULL;
+//   }
+//   Q->size = 0;
+//   Q->capacity = maxElements;
+//   Q->front = 0;
+//   Q->rear = -1;
+//   /* Return the pointer */
+//   return Q;
+// }
+// struct vertex * Dequeue(struct Queue *Q)
+// {
+//   /* If Queue size is zero then it is empty. So we cannot pop */
+//   if(Q->size==0)
+//     {
+//       printf("Queue is Empty\n");
+//       return NULL;
+//     }
+//   /* Removing an element is equivalent to incrementing index of front by one */
+//   else
+//     {
+//       int x = Q->front;
+//       Q->size--;
+//       Q->front++;
+//       return Q->vertices[x];
+//       /* As we fill elements in circular fashion */
+//       if(Q->front==Q->capacity)
+// 	{
+// 	  Q->front=0;
+// 	}
+//     }
+//   return NULL;
+// }
+// void Enqueue(struct Queue *Q,struct vertex *v)
+// {
+//   /* If the Queue is full, we cannot push an element into it as there is no space for it.*/
+//   if(Q->size == Q->capacity)
+//     {
+//       printf("Queue is Full\n");
+//     }
+//   else
+//     {
+//       Q->size++;
+//       Q->rear = Q->rear + 1;
+//       /* As we fill the queue in circular fashion */
+//       if(Q->rear == Q->capacity)
+// 	{
+// 	  Q->rear = 0;
+// 	}
+//       /* Insert the element in its rear side */ 
+//       Q->vertices[Q->rear] = v;
+//     }
+//   return;
+// }
+
+// bool qIsEmpty(struct Queue *Q){
+//   return (Q->size == 0);
+// }
+
+
+
+
+// /////////////////////////////////////////////////////
+
+
+
+
 struct vertex{
     struct vertex *next;
     int vID;
@@ -50,17 +133,11 @@ int checkDuplicate(struct graph *g, int x, int y){
 	struct vertex *tmp2;
 	tmp2 = &g->vlist[y];
 	int result=0;
-	int m=0;
 	while(tmp1->next != NULL){
-		printf("1: %d\n", x);
-		printf("2: %d\n", y);
-				printf("vID: %d\n", tmp1->vID);
 		if(tmp1->vID == y){
 			result=1;
 		}
 		tmp1 = tmp1->next;
-		m++;
-		printf("m: %d\n", m);
 	}
 	while(tmp2->next != NULL){
 		if(tmp2->vID == x){
@@ -99,15 +176,15 @@ void edgeGenerator(struct graph *g, int maxNumberOfEdges){
 				eIndex++;
 			}
 			else{
-				int linkvertex1 = (rand()%g->index)+1;
-				int linkvertex2 = (rand()%g->index)+1;
+				int linkvertex1 = (rand()%g->index);
+				int linkvertex2 = (rand()%g->index);
 			}
 		}
 //	}
 }
 
 int findRoot(struct graph *g, struct vertex *v){
-	for(int i=0; i<g->index+1; i++){
+	for(int i=0; i<g->index; i++){
 		if(g->vlist[i].vID==v->vID)
 			return i;
 }
@@ -128,9 +205,43 @@ void DFS(struct graph *g, struct vertex *v){
 		}
 	}
 
+// void BFS(struct graph *g){
+// 	struct Queue *q;
+// 	q= createQueue(numberOfVertices);
+// 	Enqueue()
+// }
+
+
+
+void makeVisit(struct graph *g){
+	struct vertex *tmp1 = &g->vlist[0];
+	g->vlist[0].visited=1;
+	int flag = 1;
+	while(flag){
+		flag = 0;
+		for(int j=0; j<g->index; j++){
+			if(g->vlist[j].visited==1)
+				tmp1=&g->vlist[j];
+			while(tmp1!=NULL){
+				for(int i=0; i <g->index; i++){
+				//	printf("i: %d\n", i);
+					if(i == tmp1->vID && g->vlist[i].visited==0){
+				//		printf("temp1 de iD: %d\n", tmp1->vID);
+						g->vlist[i].visited=1;
+						flag =1;
+					}
+				}
+				tmp1=tmp1->next;
+			}
+		}
+	}
+
+}
+
+
 
 int checkConnectionTF(struct graph *g){
-	for(int i=0; i < g->index+1; i++){
+	for(int i=0; i < g->index; i++){
 		if(g->vlist[i].visited==0)
 			return 0;
 	}
@@ -167,17 +278,14 @@ int checkConnectionTF(struct graph *g){
 
 
 void checkConnection(struct graph *g, int numberOfVertices){
-	for(int i = 0; i<g->index+1; i++){
-		g->vlist[i].visited=0;
-	}
-	DFS(g, &g->vlist[0]);
+
 	int *groupA;
 	int *groupB;
 	groupA=(int *)malloc(sizeof(int) * numberOfVertices);
 	groupB=(int *)malloc(sizeof(int) * numberOfVertices);
 	int j=0;
 	int k=0;
-	for(int i=0; i<g->index+1; i++){
+	for(int i=0; i<g->index; i++){
 		if(g->vlist[i].visited== 1){
 			groupA[j]=g->vlist[i].vID;
 			j++;
@@ -191,18 +299,49 @@ void checkConnection(struct graph *g, int numberOfVertices){
 	struct vertex *temp1 = (struct vertex *)malloc(sizeof(struct vertex));
 	struct vertex *temp2 = (struct vertex *)malloc(sizeof(struct vertex));
 
-	temp1->vID=groupA[0];
+	    srand ( time(NULL) );
+
+printf("j:  %d\n", j);
+printf("k:  %d\n", k);
+
+	int linkvertex1 = (rand()%j);
+	int linkvertex2 = (rand()%k);
+	printf("linkvertex1:  %d\n", linkvertex1);
+printf("linkvertex2:  %d\n", linkvertex2);
+printf("groupa1 %d\n", groupA[linkvertex1]);
+printf("groupa2 %d\n", groupB[linkvertex2]);
+printf("check %d\n", checkDuplicate(g, groupA[linkvertex1], groupB[linkvertex2]));
+	while(checkDuplicate(g, groupA[linkvertex1], groupB[linkvertex2])){
+	//	printf("pass3\n");
+		int linkvertex1 = (rand()%j);
+		int linkvertex2 = (rand()%k);
+
+
+
+	for(int i = 0; i<g->index; i++){
+		g->vlist[i].visited=0;
+	}
+	}
+
+
+
+
+
+printf("pass3\n");
+	temp1->vID=groupA[linkvertex1];
 	temp1->weight=0;
 	temp1->next=NULL;
 	temp1->visited=0;
-	temp2->vID=groupB[0];
+	temp2->vID=groupB[linkvertex2];
 	temp2->weight=0;
 	temp2->next=NULL;
 	temp2->visited=0;
+printf("pass4\n");
 
-	findLast(g, groupA[0], temp2);
-	findLast(g, groupB[0], temp1);
+	findLast(g, groupA[linkvertex1], temp2);
+	findLast(g, groupB[linkvertex2], temp1);
 
+printf("pass5\n");
 
 
 
@@ -240,26 +379,33 @@ for(int i=0; i<g->index; i++){
  	 printf("\n");
 }
 
-// printf("pass1\n");
-// DFS(g, &g->vlist[0]);
-// printf("pass2\n");
-
-// while(!checkConnectionTF(g)){
-// 	checkConnection(g, numberOfVertices);
-// }
-
+printf("pass1\n");
+makeVisit(g);
+for(int i=0; i<g->index;i++){
+	printf("%d\n", g->vlist[i].visited);
+}
+printf("pass2\n");
 
 
-// for(int i=0; i<g->index; i++){
-//  	printf("%d: ", g->vlist[i].vID);
-//  	struct vertex *tmp;
-//  	tmp = &g->vlist[i];
-//  	while(tmp->next != NULL){
-//  		tmp=tmp->next;
-//  		printf("[%d] ",tmp->vID);
-//  	}
-//  	 printf("\n");
-// }
+if(!checkConnectionTF(g))
+	{
+		while(!checkConnectionTF(g)){
+			checkConnection(g, numberOfVertices);
+			makeVisit(g);
+}
+}
+
+
+for(int i=0; i<g->index; i++){
+ 	printf("%d: ", g->vlist[i].vID);
+ 	struct vertex *tmp;
+ 	tmp = &g->vlist[i];
+ 	while(tmp->next != NULL){
+ 		tmp=tmp->next;
+ 		printf("[%d] ",tmp->vID);
+ 	}
+ 	 printf("\n");
+}
 
 
 
