@@ -45,24 +45,6 @@ struct subset
     int rank;
 };
 
-
-// Creates a graph with V vertices and E edges
-struct Graph* createGraph(int V, int E)
-{
-    struct Graph* graph = (struct Graph*) malloc( sizeof(struct Graph) );
-    graph->V = V;
-    graph->E = E;
-    
-    graph->edge = (struct Edge*) malloc( graph->E * sizeof( struct Edge ) );
-    
-    return graph;
-}
-
-
-
-
-
-
 // Functions and Methond for SEARCH
 //__________________________________________________________________________
 // Function prototypes for union-find (These functions are defined
@@ -168,7 +150,17 @@ void Union(struct subset subsets[], int x, int y)
 }
 
 
-
+// Creates a graph with V vertices and E edges
+struct Graph* createGraph(int V, int E)
+{
+    struct Graph* graph = (struct Graph*) malloc( sizeof(struct Graph) );
+    graph->V = V;
+    graph->E = E;
+    
+    graph->edge = (struct Edge*) malloc( graph->E * sizeof( struct Edge ) );
+    
+    return graph;
+}
 
 // Main
 //__________________________________________________________________________

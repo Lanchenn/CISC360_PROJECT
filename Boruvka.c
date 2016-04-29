@@ -141,16 +141,6 @@ void boruvkaMST(struct Graph* graph)
     return;
 }
 
-// Creates a graph with V vertices and E edges
-struct Graph* createGraph(int V, int E)
-{
-    Graph* graph = new Graph;
-    graph->V = V;
-    graph->E = E;
-    graph->edge = new Edge[E];
-    return graph;
-}
-
 // A utility function to find set of an element i
 // (uses path compression technique)
 int find(struct subset subsets[], int i)
@@ -187,7 +177,15 @@ void Union(struct subset subsets[], int x, int y)
     }
 }
 
-
+// Creates a graph with V vertices and E edges
+struct Graph* createGraph(int V, int E)
+{
+    Graph* graph = new Graph;
+    graph->V = V;
+    graph->E = E;
+    graph->edge = new Edge[E];
+    return graph;
+}
 
 // Main
 //__________________________________________________________________________
