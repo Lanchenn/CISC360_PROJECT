@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "Utility.h"
 
 /**
  * GROUP PROJECT CISC360-010
@@ -39,43 +38,35 @@ struct Graph
     
 }; typedef struct Graph Graph;
 
-// Functions and Methond for SEARCH
+// Search Function
 //__________________________________________________________________________
-<<<<<<< Updated upstream
+
 void PrimMST(Graph *graph)
 {
-    int* reachset;
-    int* spanningTree;
-    
     int V = graph->V, E = graph->E;
     Edge *edge = graph->edge;
+    int* reachset = (int *)malloc(sizeof(int) * V);
+    int* unreachset = (int *)malloc(sizeof(int) * V);
+    int* ST = (int *)malloc(sizeof(int) * V);
+    int MSTWeight = 0;
+    int i;
     
-    reachset[0] = 
+    
+    
+    
     // print the contents of result[] to display the built MST
     printf("===============================================\n");
     printf("Following are the edges in the constructed MST\n");
-    for (i = 0; i < e; ++i) {
-        printf("Edge: %d -- %d (Weight: %d)\n", result[i].src, result[i].dest,
-               result[i].weight);
-        MSTWeight += result[i].weight;
+    for (i = 0; i < V; ++i) {
+        printf("Edge: %d -- %d (Weight: %d)\n", edge[i].src, edge[i].dest,
+               edge[i].weight);
+        MSTWeight += edge[i].weight;
     }
     printf("Total Weight: %d\n", MSTWeight);
     printf("===============================================\n");
     return;
-=======
-// Function prototypes for union-find (These functions are defined
-// after KruskalMST() method.
-
-
-
-
-
-// Serch Function
-void PrimMST(Graph* graph){
-	
-	
->>>>>>> Stashed changes
 }
+
 
 // Creates a graph with V vertices and E edges
 Graph* createGraph(int V, int E)
@@ -132,7 +123,7 @@ int main()
     graph->edge[4].dest = 3;
     graph->edge[4].weight = 4;
     
-    KruskalMST(graph);
+    PrimMST(graph);
     
     return 0;
 }
