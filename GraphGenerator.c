@@ -5,8 +5,7 @@
 #define MAX_VERTICES 30
 #define MAX_EDGES 10
 #define MAX_weight 30
-<<<<<<< HEAD
- ////////////////////////////////////////////////////
+
 // struct Queue
 // {
 //   int capacity;
@@ -87,11 +86,6 @@
 
 // /////////////////////////////////////////////////////
 
-=======
->>>>>>> b6fa74a6c63fcae225e468cdd4dbcb1a3bdea5de
-
-
-
 struct vertex{
     struct vertex *next;
     int vID;
@@ -120,7 +114,7 @@ void createVertexList(struct graph *g, int numberOfVertices){
 	//return g;
 }
 
-// 改成加到最后
+//
 void findLast(struct graph *g, int i, struct vertex *v){
 	struct vertex *tmp;
 	tmp = &g->vlist[i];
@@ -211,7 +205,7 @@ void DFS(struct graph *g, struct vertex *v){
 // void BFS(struct graph *g){
 // 	struct Queue *q;
 // 	q= createQueue(numberOfVertices);
-// 	Enqueue()
+// 	Enqueue();
 // }
 
 
@@ -276,8 +270,6 @@ int checkConnectionTF(struct graph *g){
 // 		tmp
 // 	}
 // }
-
-
 
 
 void checkConnection(struct graph *g, int numberOfVertices){
@@ -409,11 +401,5 @@ for(int i=0; i<g->index; i++){
  	}
  	 printf("\n");
 }
-
-
-
-
-   
-
     return 1;
 }
