@@ -44,7 +44,7 @@ struct subset
 {
     int parent;
     int rank;
-};
+}; typedef struct subset subset;
 
 
 
@@ -52,18 +52,18 @@ struct subset
 //__________________________________________________________________________
 // Function prototypes for union-find (These functions are defined
 // after boruvkaMST() )
-int find(struct subset subsets[], int i);
-void Union(struct subset subsets[], int x, int y);
+int find(subset subsets[], int i);
+void Union(subset subsets[], int x, int y);
 
 // The main function for MST using Boruvka's algorithm
-void boruvkaMST(struct Graph* graph)
+void boruvkaMST(Graph* graph)
 {
     // Get data of given graph
     int V = graph->V, E = graph->E;
     Edge *edge = graph->edge;
     
     // Allocate memory for creating V subsets.
-    struct subset *subsets =  (struct subset*) malloc( V * sizeof(struct subset) );
+    subset *subsets =  (subset*) malloc(V * sizeof(subset));
     
     // An array to store index of the cheapest edge of
     // subset.  The stored index for indexing array 'edge[]'
@@ -148,7 +148,7 @@ void boruvkaMST(struct Graph* graph)
 
 // A utility function to find set of an element i
 // (uses path compression technique)
-int find(struct subset subsets[], int i)
+int find(subset subsets[], int i)
 {
     // find root and make root as parent of i
     // (path compression)
@@ -161,7 +161,7 @@ int find(struct subset subsets[], int i)
 
 // A function that does union of two sets of x and y
 // (uses union by rank)
-void Union(struct subset subsets[], int x, int y)
+void Union(subset subsets[], int x, int y)
 {
     int xroot = find(subsets, x);
     int yroot = find(subsets, y);
@@ -183,9 +183,9 @@ void Union(struct subset subsets[], int x, int y)
 }
 
 // Creates a graph with V vertices and E edges
-struct Graph* createGraph(int V, int E)
+Graph* createGraph(int V, int E)
 {
-    Graph* graph = (struct Graph*) malloc( sizeof(struct Graph) );
+    Graph* graph = (Graph*) malloc(sizeof(Graph));
     graph->V = V;
     graph->E = E;
     graph->edge = (Edge *)malloc(sizeof(Edge) * E);
@@ -207,7 +207,7 @@ int main()
      4       */
     int V = 4;  // Number of vertices in graph
     int E = 5;  // Number of edges in graph
-    struct Graph* graph = createGraph(V, E);
+    Graph* graph = createGraph(V, E);
     
     
     // add edge 0-1

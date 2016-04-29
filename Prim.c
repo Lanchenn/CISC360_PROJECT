@@ -5,23 +5,26 @@
 
 /**
  * GROUP PROJECT CISC360-010
- * PART TWO: Prim algorithm structure
+ * PART THREE: Prim algorithm structure
  *
  * Prim's algorithm is to find Minimum Spanning Tree
  * of a given connected, undirected and weighted graph.
  * The program is for adjacency matrix representation of the graph
  *
  * The orinal code is from: 
- * http ://www.geeksforgeeks.org/greedy-algorithms-set-5-prims-mst-for-adjacency-list-representation/
+ * http ://www.geeksforgeeks.org/greedy-algorithms-set-5-prims-mst-
+ *                                    for-adjacency-list-representation/
  */
 
 
-// C / C++ program for Prim's MST for adjacency list representation of graph
+
+// Structure
+//__________________________________________________________________________
 // a structure to represent a weighted edge in graph
 struct Edge
 {
     int src, dest, weight;
-};
+};typedef struct Edge Edge;
 
 // a structure to represent a connected, undirected and weighted graph
 struct Graph
@@ -33,14 +36,30 @@ struct Graph
     // undirected, the edge from src to dest is also edge from dest
     // to src. Both are counted as 1 edge here.
     struct Edge* edge;
-};
+}; typedef struct Graph Graph;
 
-// A structure to represent a subset for union-find
+/* / A structure to represent a subset for union-find
 struct subset
 {
     int parent;
     int rank;
-};
+};*/
+
+
+// Functions and Methond for SEARCH
+//__________________________________________________________________________
+// Function prototypes for union-find (These functions are defined
+// after KruskalMST() method.
+
+
+
+
+
+// Serch Function
+void KruskalMST(Graph* graph){
+	
+}
+
 
 
 

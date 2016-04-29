@@ -8,7 +8,7 @@
  * Group Member: Lan Chen, Jessica Chen, Xiaomeng Chen and Zhanglong Peng
  *
  * __________________________________________________________________________
- * PART THREE: Kruskal algorithm structure
+ * PART TWO: Kruskal algorithm structure
  * Kruskal's algorithm is to find Minimum Spanning Tree
  * of a given connected, undirected and weighted graph.
  *
@@ -25,7 +25,7 @@
 struct Edge
 {
     int src, dest, weight;
-};
+}; typedef struct Edge Edge;
 
 // a structure to represent a connected, undirected and weighted graph
 struct Graph
@@ -37,37 +37,37 @@ struct Graph
     // undirected, the edge from src to dest is also edge from dest
     // to src. Both are counted as 1 edge here.
     struct Edge* edge;
-};
+}; typedef struct Graph Graph;
 
 // A structure to represent a subset for union-find
 struct subset
 {
     int parent;
     int rank;
-};
+}; typedef struct subset subset;
 
 // Functions and Methond for SEARCH
 //__________________________________________________________________________
 // Function prototypes for union-find (These functions are defined
 // after KruskalMST() method.
-int find (struct subset subsets[], int i);
-void Union(struct subset subsets[], int x, int y);
+int find (subset subsets[], int i);
+void Union(subset subsets[], int x, int y);
 
 
 // Compare two edges according to their weights.
 // Used in qsort() for sorting an array of edges
 int myComp(const void* a, const void* b)
 {
-    struct Edge* a1 = (struct Edge*)a;
-    struct Edge* b1 = (struct Edge*)b;
+    Edge* a1 = (Edge*)a;
+    Edge* b1 = (Edge*)b;
     return a1->weight > b1->weight;
 }
 
 // The main function to construct MST using Kruskal's algorithm
-void KruskalMST(struct Graph* graph)
+void KruskalMST(Graph* graph)
 {
     int V = graph->V;
-    struct Edge result[V];	// Tnis will store the resultant MST
+    Edge result[V];	// Tnis will store the resultant MST
     int e = 0;	// An index variable, used for result[]
     int i = 0;  // An index variable, used for sorted edges
     int MSTWeight = 0;		// the total weight of  Minimum Spanning Tree
@@ -78,8 +78,8 @@ void KruskalMST(struct Graph* graph)
     qsort(graph->edge, graph->E, sizeof(graph->edge[0]), myComp);
     
     // Allocate memory for creating V ssubsets
-    struct subset *subsets =
-    (struct subset*) malloc(V * sizeof(struct subset));
+    subset *subsets =
+    (subset*) malloc(V * sizeof(subset));
     
     // Create V subsets with single elements
     for (int v = 0; v < V; ++v)
@@ -93,7 +93,7 @@ void KruskalMST(struct Graph* graph)
     {
         // Step 2: Pick the smallest edge. And increment the index
         // for next iteration
-        struct Edge next_edge = graph->edge[i++];
+        Edge next_edge = graph->edge[i++];
         
         int x = find(subsets, next_edge.src);
         int y = find(subsets, next_edge.dest);
@@ -109,7 +109,7 @@ void KruskalMST(struct Graph* graph)
     }
     
     // print the contents of result[] to display the built MST
-    printf("=================================================================");
+    printf("===============================================\n");
     printf("Following are the edges in the constructed MST\n");
     for (i = 0; i < e; ++i) {
         printf("Edge: %d -- %d (Weight: %d)\n", result[i].src, result[i].dest,
@@ -117,14 +117,14 @@ void KruskalMST(struct Graph* graph)
         MSTWeight += result[i].weight;
     }
     printf("Total Weight: %d\n", MSTWeight);
-    printf("=================================================================");
+    printf("===============================================\n");
     return;
 }
 
 
 // A utility function to find set of an element i
 // (uses path compression technique)
-int find(struct subset subsets[], int i)
+int find(subset subsets[], int i)
 {
     // find root and make root as parent of i (path compression)
     if (subsets[i].parent != i)
@@ -135,7 +135,7 @@ int find(struct subset subsets[], int i)
 
 // A function that does union of two sets of x and y
 // (uses union by rank)
-void Union(struct subset subsets[], int x, int y)
+void Union(subset subsets[], int x, int y)
 {
     int xroot = find(subsets, x);
     int yroot = find(subsets, y);
@@ -158,13 +158,13 @@ void Union(struct subset subsets[], int x, int y)
 
 
 // Creates a graph with V vertices and E edges
-struct Graph* createGraph(int V, int E)
+Graph* createGraph(int V, int E)
 {
-    struct Graph* graph = (struct Graph*) malloc( sizeof(struct Graph) );
+    Graph* graph = (Graph*) malloc(sizeof(Graph));
     graph->V = V;
     graph->E = E;
     
-    graph->edge = (struct Edge*) malloc( graph->E * sizeof( struct Edge ) );
+    graph->edge = (Edge*) malloc(graph->E * sizeof(Edge));
     
     return graph;
 }
@@ -184,7 +184,7 @@ int main()
      4       */
     int V = 4;  // Number of vertices in graph
     int E = 5;  // Number of edges in graph
-    struct Graph* graph = createGraph(V, E);
+    Graph* graph = createGraph(V, E);
     
     
     // add edge 0-1
