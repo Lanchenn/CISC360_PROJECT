@@ -5,6 +5,7 @@
 #define MAX_VERTICES 30
 #define MAX_EDGES 10
 #define MAX_weight 30
+<<<<<<< HEAD
  ////////////////////////////////////////////////////
 // struct Queue
 // {
@@ -86,6 +87,8 @@
 
 // /////////////////////////////////////////////////////
 
+=======
+>>>>>>> b6fa74a6c63fcae225e468cdd4dbcb1a3bdea5de
 
 
 
