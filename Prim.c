@@ -36,81 +36,89 @@ struct Graph
     // undirected, the edge from src to dest is also edge from dest
     // to src. Both are counted as 1 edge here.
     struct Edge* edge;
+    
 }; typedef struct Graph Graph;
-
-/* / A structure to represent a subset for union-find
-struct subset
-{
-    int parent;
-    int rank;
-};*/
-
 
 // Functions and Methond for SEARCH
 //__________________________________________________________________________
-// Function prototypes for union-find (These functions are defined
-// after KruskalMST() method.
-
-
-
-
-
-// Serch Function
-void KruskalMST(Graph* graph){
-	
+void PrimMST(Graph *graph)
+{
+    int* reachset;
+    int* spanningTree;
+    
+    int V = graph->V, E = graph->E;
+    Edge *edge = graph->edge;
+    
+    reachset[0] = 
+    // print the contents of result[] to display the built MST
+    printf("===============================================\n");
+    printf("Following are the edges in the constructed MST\n");
+    for (i = 0; i < e; ++i) {
+        printf("Edge: %d -- %d (Weight: %d)\n", result[i].src, result[i].dest,
+               result[i].weight);
+        MSTWeight += result[i].weight;
+    }
+    printf("Total Weight: %d\n", MSTWeight);
+    printf("===============================================\n");
+    return;
 }
 
+// Creates a graph with V vertices and E edges
+Graph* createGraph(int V, int E)
+{
+    Graph* graph = (Graph*) malloc(sizeof(Graph));
+    graph->V = V;
+    graph->E = E;
+    
+    graph->edge = (Edge*) malloc(graph->E * sizeof(Edge));
+    
+    return graph;
+}
 
-
-
-//// A structure to represent a node in adjacency list
-//struct AdjListNode
-//{
-//    int dest;
-//    int weight;
-//    struct AdjListNode* next;
-//};
-//
-//// A structure to represent an adjacency liat
-//struct AdjList
-//{
-//    struct AdjListNode *head;  // pointer to head node of list
-//};
-//
-//// A structure to represent a graph. A graph is an array of adjacency lists.
-//// Size of array will be V (number of vertices in graph)
-//struct Graph
-//{
-//    int V;
-//    struct AdjList* array;
-//};
-//
-
-
-
-
-
-
-// driver program to test above function
+// Main
+//__________________________________________________________________________
+// Driver program to test above functions
 int main()
 {
-    /* Let us create the following graph
-     2    3
-     (0)--(1)--(2)
-     |   / \   |
-     6| 8/   \5 |7
-     | /     \ |
-     (3)-------(4)
-     9          */
-    int graph[V][V] = {{0, 2, 0, 6, 0},
-        {2, 0, 3, 8, 5},
-        {0, 3, 0, 0, 7},
-        {6, 8, 0, 0, 9},
-        {0, 5, 7, 9, 0},
-    };
+    /* Let us create following weighted graph
+     10
+     0--------1
+     |  \     |
+     6|   5\   |15
+     |      \ |
+     2--------3
+     4       */
+    int V = 4;  // Number of vertices in graph
+    int E = 5;  // Number of edges in graph
+    Graph* graph = createGraph(V, E);
     
-    // Print the solution
-    primMST(graph);
+    
+    // add edge 0-1
+    graph->edge[0].src = 0;
+    graph->edge[0].dest = 1;
+    graph->edge[0].weight = 10;
+    
+    // add edge 0-2
+    graph->edge[1].src = 0;
+    graph->edge[1].dest = 2;
+    graph->edge[1].weight = 6;
+    
+    // add edge 0-3
+    graph->edge[2].src = 0;
+    graph->edge[2].dest = 3;
+    graph->edge[2].weight = 5;
+    
+    // add edge 1-3
+    graph->edge[3].src = 1;
+    graph->edge[3].dest = 3;
+    graph->edge[3].weight = 15;
+    
+    // add edge 2-3
+    graph->edge[4].src = 2;
+    graph->edge[4].dest = 3;
+    graph->edge[4].weight = 4;
+    
+    KruskalMST(graph);
     
     return 0;
 }
