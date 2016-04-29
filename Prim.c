@@ -41,6 +41,7 @@ struct Graph
 
 // Functions and Methond for SEARCH
 //__________________________________________________________________________
+<<<<<<< Updated upstream
 void PrimMST(Graph *graph)
 {
     int* reachset;
@@ -61,6 +62,19 @@ void PrimMST(Graph *graph)
     printf("Total Weight: %d\n", MSTWeight);
     printf("===============================================\n");
     return;
+=======
+// Function prototypes for union-find (These functions are defined
+// after KruskalMST() method.
+
+
+
+
+
+// Serch Function
+void PrimMST(Graph* graph){
+	
+	
+>>>>>>> Stashed changes
 }
 
 // Creates a graph with V vertices and E edges
