@@ -116,6 +116,8 @@ void boruvkaMST(struct Graph* graph)
         
         // Consider the above picked cheapest edges and add them
         // to MST
+        printf("===============================================\n");
+	printf("Following are the edges in the constructed MST\n");
         for (int i=0; i<V; i++)
         {
             // Check if cheapest for current set exists
@@ -127,7 +129,7 @@ void boruvkaMST(struct Graph* graph)
                 if (set1 == set2)
                     continue;
                 MSTweight += edge[cheapest[i]].weight;
-                printf("Edge %d-%d included in MST\n",
+                printf("Edge: %d -- %d (Weight: %d)\n",
                        edge[cheapest[i]].src, edge[cheapest[i]].dest,
                        edge[cheapest[i]].weight);
                 
@@ -139,7 +141,8 @@ void boruvkaMST(struct Graph* graph)
         }
     }
     
-    printf("Weight of MST is %d\n", MSTweight);
+    printf("Total Weight: %d\n", MSTweight);
+    printf("===============================================\n");
     return;
 }
 
