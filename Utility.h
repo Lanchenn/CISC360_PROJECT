@@ -9,9 +9,9 @@
  * Group Member: Lan Chen, Jessica Chen, Xiaomeng Chen and Zhanglong Peng
  *
  * __________________________________________________________________________
- * PART FIVE: 
- * This Random Graph generator should generate a complete graph
- * with given density and vertex number.
+ * PART FIVE: Graph Structure, Helper Function and GraphGenerator Converter
+ * This class has  all the utility for other algorithms,
+ * Also includs the converter of Random Graph Generator.
  *
  */
 
@@ -57,8 +57,8 @@ struct subset
 // Main
 //__________________________________________________________________________
 // Driver program to test above functions
-int main()
-{
+//int main()
+//{
 //    /* Let us create following weighted graph
 //     10
 //     0--------1
@@ -99,8 +99,8 @@ int main()
 //    
 //    boruvkaMST(graph);
     
-    return 0;
-}
+//    return 0;
+//}
 
 
 
