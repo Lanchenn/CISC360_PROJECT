@@ -109,13 +109,15 @@ void KruskalMST(struct Graph* graph)
     }
     
     // print the contents of result[] to display the built MST
+    printf("=================================================================");
     printf("Following are the edges in the constructed MST\n");
     for (i = 0; i < e; ++i) {
         printf("Edge: %d -- %d (Weight: %d)\n", result[i].src, result[i].dest,
                result[i].weight);
         MSTWeight += result[i].weight;
     }
-    printf("Total Weight: %d", MSTWeight);
+    printf("Total Weight: %d\n", MSTWeight);
+    printf("=================================================================");
     return;
 }
 
