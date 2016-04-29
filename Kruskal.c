@@ -13,7 +13,8 @@
  * of a given connected, undirected and weighted graph.
  *
  * The orinal code is from: 
- * http ://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/
+ * http ://www.geeksforgeeks.org/greedy-
+ *                      algorithms-set-2-kruskals-minimum-spanning-tree-mst/
  */
 
 
@@ -66,9 +67,10 @@ int myComp(const void* a, const void* b)
 void KruskalMST(struct Graph* graph)
 {
     int V = graph->V;
-    struct Edge result[V];  // Tnis will store the resultant MST
-    int e = 0;  // An index variable, used for result[]
+    struct Edge result[V];	// Tnis will store the resultant MST
+    int e = 0;	// An index variable, used for result[]
     int i = 0;  // An index variable, used for sorted edges
+    int MSTWeight = 0;		// the total weight of  Minimum Spanning Tree
     
     // Step 1:  Sort all the edges in non-decreasing order of their weight
     // If we are not allowed to change the given graph, we can create a copy of
@@ -77,7 +79,7 @@ void KruskalMST(struct Graph* graph)
     
     // Allocate memory for creating V ssubsets
     struct subset *subsets =
-    (struct subset*) malloc( V * sizeof(struct subset) );
+    (struct subset*) malloc(V * sizeof(struct subset));
     
     // Create V subsets with single elements
     for (int v = 0; v < V; ++v)
@@ -108,9 +110,12 @@ void KruskalMST(struct Graph* graph)
     
     // print the contents of result[] to display the built MST
     printf("Following are the edges in the constructed MST\n");
-    for (i = 0; i < e; ++i)
-        printf("%d -- %d == %d\n", result[i].src, result[i].dest,
+    for (i = 0; i < e; ++i) {
+        printf("Edge: %d -- %d (Weight: %d)\n", result[i].src, result[i].dest,
                result[i].weight);
+        MSTWeight += result[i].weight;
+    }
+    printf("Total Weight: %d", MSTWeight);
     return;
 }
 
