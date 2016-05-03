@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "Utility.h"
+#include "Utility.h"
 
 /**
  * GROUP PROJECT CISC360-010
@@ -17,34 +17,23 @@
  *                      algorithms-set-2-kruskals-minimum-spanning-tree-mst/
  */
 
-
-
 // Structure
 //__________________________________________________________________________
 // a structure to represent a weighted edge in graph
-struct Edge
-{
+/*
+struct Edge {
     int src, dest, weight;
-}; typedef struct Edge Edge;
-
-// a structure to represent a connected, undirected and weighted graph
-struct Graph
-{
-    // V-> Number of vertices, E-> Number of edges
+};
+struct Graph {
     int V, E;
-    
-    // graph is represented as an array of edges. Since the graph is
-    // undirected, the edge from src to dest is also edge from dest
-    // to src. Both are counted as 1 edge here.
     struct Edge* edge;
-}; typedef struct Graph Graph;
-
-// A structure to represent a subset for union-find
-struct subset
-{
+};
+struct subset {
     int parent;
     int rank;
-}; typedef struct subset subset;
+};
+*/
+
 
 // Functions and Methond for SEARCH
 //__________________________________________________________________________

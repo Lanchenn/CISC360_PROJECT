@@ -22,7 +22,7 @@
 struct Edge
 {
     int src, dest, weight;
-};
+}; typedef struct Edge Edge;
 
 // a structure to represent a connected, undirected
 // and weighted graph as a collection of edges.
@@ -36,14 +36,14 @@ struct Graph
     // from src to dest is also edge from dest
     // to src. Both are counted as 1 edge here.
     Edge* edge;
-};
+}; typedef struct Graph Graph;
 
 // A structure to represent a subset for union-find
 struct subset
 {
     int parent;
     int rank;
-};
+}; typedef struct subset subset;
 
 
 // Functions and Method For Random Graph Generator
@@ -101,6 +101,40 @@ struct subset
     
 //    return 0;
 //}
+
+
+
+///Do NOT edit this part
+// Structure
+//__________________________________________________________________________
+// a structure to represent a weighted edge in graph
+/*
+struct Edge
+{
+    int src, dest, weight;
+}; typedef struct Edge Edge;
+
+// a structure to represent a connected, undirected and weighted graph
+struct Graph
+{
+    // V-> Number of vertices, E-> Number of edges
+    int V, E;
+    
+    // graph is represented as an array of edges. Since the graph is
+    // undirected, the edge from src to dest is also edge from dest
+    // to src. Both are counted as 1 edge here.
+    struct Edge* edge;
+}; typedef struct Graph Graph;
+
+// A structure to represent a subset for union-find
+struct subset
+{
+    int parent;
+    int rank;
+}; typedef struct subset subset;
+*/
+
+
 
 
 
