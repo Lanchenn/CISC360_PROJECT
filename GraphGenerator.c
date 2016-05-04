@@ -165,7 +165,7 @@
 
 
 
-// /////////////////////////////////////////////////////
+//、/////////////////////////////////////////////////////
 
 struct vertex{
     struct vertex *next;
@@ -180,7 +180,7 @@ struct graph{
     int index;// index+1 will be the number of vertices
 //    int nvertices;
 //    int line;
-} ;
+};
 
 void createVertexList(struct graph *g, int numberOfVertices){
 	// struct graph *g;

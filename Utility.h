@@ -46,9 +46,28 @@ struct subset
 }; typedef struct subset subset;
 
 
-// Functions and Method For Random Graph Generator
+// Functions and Method For GraphGenerator Converter
 //__________________________________________________________________________
+//R GraphGenerator Structure
+/*struct vertex{
+    struct vertex *next;
+    int vID;
+    int weight;
+    int visited;
+};
 
+struct graph{
+//    struct vertex *vertices[MAXV];
+    struct vertex *vlist;
+    int index;// index+1 will be the number of vertices
+//    int nvertices;
+//    int line;
+};*/
+
+Graph* converter(Graph* g){
+	
+	
+}
 
 
 
