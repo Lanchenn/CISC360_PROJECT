@@ -37,7 +37,7 @@
 //   /* If Queue size is zero then it is empty. So we cannot pop */
 //   if(Q->size==0)
 //     {
-//       printf("Queue is Empty\n");
+//       //printf("Queue is Empty\n");
 //       return NULL;
 //     }
 //   /* Removing an element is equivalent to incrementing index of front by one */
@@ -60,7 +60,7 @@
 //   /* If the Queue is full, we cannot push an element into it as there is no space for it.*/
 //   if(Q->size == Q->capacity)
 //     {
-//       printf("Queue is Full\n");
+//       //printf("Queue is Full\n");
 //     }
 //   else
 //     {
@@ -118,7 +118,7 @@
 //   /* If Queue size is zero then it is empty. So we cannot pop */
 //   if(Q->size==0)
 //     {
-//       printf("Queue is Empty\n");
+//       //printf("Queue is Empty\n");
 //       return NULL;
 //     }
 //   /* Removing an element is equivalent to incrementing index of front by one */
@@ -141,7 +141,7 @@
 //   /* If the Queue is full, we cannot push an element into it as there is no space for it.*/
 //   if(Q->size == Q->capacity)
 //     {
-//       printf("Queue is Full\n");
+//       //printf("Queue is Full\n");
 //     }
 //   else
 //     {
@@ -184,12 +184,13 @@ struct graph{
 
 void createVertexList(struct graph *g, int numberOfVertices){
 	// struct graph *g;
+		srand ( time(NULL) );
 	g->index=numberOfVertices;
 	g->vlist = (struct vertex *)malloc(sizeof(struct vertex) * numberOfVertices);
 	for(int i=0; i<numberOfVertices; i++){
 		g->vlist[i].next= NULL;
 		g->vlist[i].vID=i;
-		g->vlist[i].weight = 0;
+		g->vlist[i].weight = rand()%numberOfVertices;
 		g->vlist[i].visited=0;
 	}
 	//return g;
@@ -211,13 +212,13 @@ int checkDuplicate(struct graph *g, int x, int y){
 	struct vertex *tmp2;
 	tmp2 = &g->vlist[y];
 	int result=0;
-	while(tmp1->next != NULL){
+	while(tmp1 != NULL){
 		if(tmp1->vID == y){
 			result=1;
 		}
 		tmp1 = tmp1->next;
 	}
-	while(tmp2->next != NULL){
+	while(tmp2 != NULL){
 		if(tmp2->vID == x){
 			result = 1;
 		}
@@ -228,17 +229,78 @@ int checkDuplicate(struct graph *g, int x, int y){
 }
 
 
+int findFullness(struct graph *g, int v){
+	struct vertex *temp = &g->vlist[v];
+	int count = 0;
+	while(temp->next!= NULL){
+		temp= temp->next;
+		count++;
+	}
+	if(count >= g->index-1)
+		return 1;
+	else
+		return 0;
+}
 
-void NedgeFirst(struct graph *g){
+
+
+void NedgeFirst(struct graph *g, int maxNumberOfEdges){
 	srand ( time(NULL) );
-	for(int eIndex=0; eIndex< g->index; eIndex++){
+	int count =0;
+	if(maxNumberOfEdges>g->index)
+		count = g->index;
+	else
+		count = maxNumberOfEdges;
+	//printf("count: %d\n", count);
+	for(int eIndex=0; eIndex< count; eIndex++){
 		int linkvertex = (rand()%(g->index));
-		while(eIndex==linkvertex ||checkDuplicate(g , eIndex, linkvertex)){
-			if(linkvertex<g->index)
-				linkvertex++;
-			else
-				linkvertex=0;
+
+		int templ= linkvertex;
+			int flag = 0;
+		while(eIndex==linkvertex ||checkDuplicate(g , eIndex, linkvertex)||checkDuplicate(g , linkvertex, eIndex)||findFullness(g,eIndex)||findFullness(g,linkvertex)){
+			if(findFullness(g,eIndex)||findFullness(g,linkvertex)){
+				if(findFullness(g,eIndex)){
+					if(eIndex<g->index-1){
+						//printf("loop2\n");
+						eIndex++;
+					}
+					else{
+						//printf("loop3\n");
+						eIndex=0;
+					}
+				}
+				else{
+					if(linkvertex<g->index-1){
+						//printf("loop5\n");
+						linkvertex++;
+					}
+					else{
+						//printf("loop6\n");
+						linkvertex=0;
+					}
+				}
+			}
+			else{
+				if(linkvertex<g->index-1){
+					//printf("loop7\n");
+					linkvertex++;
+				}
+				else{
+					//printf("loop8\n");
+					linkvertex=0;
+				}
+				if(linkvertex==templ){
+					//printf("loop9\n");
+					flag = 1;
+				}
+				if(flag){
+					eIndex++;
+					flag=0;
+				}
+			}
 		}
+
+		//printf("in NedgeFirst: %d\n", linkvertex);
 		struct vertex *temp1 = (struct vertex *)malloc(sizeof(struct vertex));
 		struct vertex *temp2 = (struct vertex *)malloc(sizeof(struct vertex));
 
@@ -258,22 +320,74 @@ void NedgeFirst(struct graph *g){
 }
 
 void edgeGenerator(struct graph *g, int nedge){
-	//printf("pass1\n");
+	////printf("pass1\n");
 	srand ( time(NULL) );
 //	for(int i=1; i<= g->index; i++){
 	int eIndex=0;
-		//printf("pass2\n");
+		////printf("pass2\n");
 	while(eIndex < nedge){
 		int linkvertex1 = (rand()%(g->index));
 		int linkvertex2 = (rand()%(g->index));
-		//printf("pass3\n");
-		while(linkvertex1==linkvertex2 || checkDuplicate(g , linkvertex1, linkvertex2)){
-			if(linkvertex2<g->index)
-				linkvertex2++;
-			else
-				linkvertex2=0;
+			//printf("edgeGenerator pass1 \n" );
+		////printf("pass3\n");
+			int templ1=linkvertex1;
+			int templ2= linkvertex2;
+			int flag = 0;
+
+					//printf("in edgeGenerator link1 before: %d\n", linkvertex1);
+		//printf("in edgeGenerator link2 before:  %d\n", linkvertex2);
+
+		while(linkvertex1==linkvertex2 || checkDuplicate(g , linkvertex1, linkvertex2)|| findFullness(g,linkvertex1)||findFullness(g,linkvertex2)){
+		//	//printf("%d\n", checkDuplicate(g , linkvertex1, linkvertex2));
+		//	//printf("%d\n", findFullness(g,linkvertex1));
+			if(findFullness(g,linkvertex1)||findFullness(g,linkvertex2)){
+				if(findFullness(g,linkvertex1)){
+					if(linkvertex1<g->index-1){
+			//			//printf("loop2\n");
+						linkvertex1++;
+					}
+					else{
+			//			//printf("loop3\n");
+						linkvertex1=0;
+					}
+				}
+				else{
+					if(linkvertex2<g->index-1){
+			//			//printf("loop5\n");
+						linkvertex2++;
+					}
+					else{
+			//			//printf("loop6\n");
+						linkvertex2=0;
+					}
+				}
+			}
+			else{
+				if(linkvertex2<g->index-1){
+			//		//printf("loop7\n");
+					linkvertex2++;
+				}
+				else{
+			//		//printf("loop8\n");
+					linkvertex2=0;
+				}
+				if(linkvertex2==templ2){
+			//		//printf("loop9\n");
+					flag = 1;
+				}
+				if(flag){
+					linkvertex1++;
+					flag=0;
+				}
+			}
 		}
-	//		printf("pass5\n");
+
+			//printf("edgeGenerator pass2 \n" );
+
+		// //printf("pause\n");
+		// //printf("in edgeGenerator link1: %d\n", linkvertex1);
+		// //printf("in edgeGenerator link2: %d\n", linkvertex2);
+	//		//printf("pass5\n");
 		struct vertex *temp1 = (struct vertex *)malloc(sizeof(struct vertex));
 		struct vertex *temp2 = (struct vertex *)malloc(sizeof(struct vertex));
 
@@ -288,6 +402,21 @@ void edgeGenerator(struct graph *g, int nedge){
 		findLast(g, linkvertex1, temp2);
 		findLast(g, linkvertex2, temp1);
 		eIndex++;
+
+// for(int i=0; i<g->index; i++){
+//  	//printf("%d: ", g->vlist[i].vID);
+//  	struct vertex *tmp;
+//  	tmp = &g->vlist[i];
+//  	while(tmp->next != NULL){
+//  		tmp=tmp->next;
+//  		//printf("[%d] ",tmp->vID);
+//  	}
+//  	 //printf("\n");
+// }
+
+
+
+		//printf("nodeinsert \n");
 	}
 }
 	
@@ -306,10 +435,10 @@ void edgeGenerator(struct graph *g, int nedge){
 // void DFS(struct graph *g, struct vertex *v);
 
 // void DFS(struct graph *g, struct vertex *v){
-// 	printf("pass3\n");
+// 	//printf("pass3\n");
 // 	struct vertex *tmp=v;
 // 		while(g->vlist[findRoot(g, tmp)].visited!=1 && tmp->next != NULL){
-// 				printf("pass4\n");
+// 				//printf("pass4\n");
 // 				g->vlist[findRoot(g, tmp)].visited=1;
 // 			tmp=tmp->next;
 // 			DFS(g, tmp);
@@ -335,9 +464,9 @@ void makeVisit(struct graph *g){
 				tmp1=&g->vlist[j];
 			while(tmp1!=NULL){
 				for(int i=0; i <g->index; i++){
-				//	printf("i: %d\n", i);
+				//	//printf("i: %d\n", i);
 					if(i == tmp1->vID && g->vlist[i].visited==0){
-				//		printf("temp1 de iD: %d\n", tmp1->vID);
+				//		//printf("temp1 de iD: %d\n", tmp1->vID);
 						g->vlist[i].visited=1;
 						flag =1;
 					}
@@ -413,16 +542,50 @@ void checkConnection(struct graph *g, int numberOfVertices){
 
 	int linkvertex1 = (rand()%j);
 	int linkvertex2 = (rand()%k);
-	while(checkDuplicate(g, groupA[linkvertex1], groupB[linkvertex2])){
-	//	printf("pass3\n");
-		int linkvertex1 = (rand()%j);
-		int linkvertex2 = (rand()%k);
-
-
-
-	for(int i = 0; i<g->index; i++){
-		g->vlist[i].visited=0;
-	}
+	int templ2= linkvertex2;
+	int flag = 0;
+	while(checkDuplicate(g, groupA[linkvertex1], groupB[linkvertex2])||findFullness(g,groupA[linkvertex1])||findFullness(g,groupA[linkvertex2])){
+		printf("nothing\n");
+		if(findFullness(g,groupA[linkvertex1])||findFullness(g,groupA[linkvertex2])){
+				if(findFullness(g,groupA[linkvertex1])){
+					if(linkvertex1<j){
+						//printf("loop2\n");
+						linkvertex1++;
+					}
+					else{
+						//printf("loop3\n");
+						linkvertex1=0;
+					}
+				}
+				else{
+					if(linkvertex2<k){
+						//printf("loop5\n");
+						linkvertex2++;
+					}
+					else{
+						//printf("loop6\n");
+						linkvertex2=0;
+					}
+				}
+			}
+			else{
+				if(linkvertex2<k){
+					//printf("loop7\n");
+					linkvertex2++;
+				}
+				else{
+					//printf("loop8\n");
+					linkvertex2=0;
+				}
+				if(linkvertex2==templ2){
+					//printf("loop9\n");
+					flag = 1;
+				}
+				if(flag){
+					linkvertex1++;
+					flag=0;
+				}
+			}
 	}
 
 
@@ -441,7 +604,9 @@ void checkConnection(struct graph *g, int numberOfVertices){
 	findLast(g, groupA[linkvertex1], temp2);
 	findLast(g, groupB[linkvertex2], temp1);
 
-
+	for(int i = 0; i<g->index; i++){
+		g->vlist[i].visited=0;
+	}
 
 
 }
@@ -456,22 +621,47 @@ int main(){
     int nov, noe;
     printf("type number of vertices u want: \n");
     scanf("%d", &nov);
-    printf("type number of edges u want: \n");
+    printf("type percentage of edges u want: \n");
     scanf("%d", &noe);
-  //  printf("pass3\n");
+  //  //printf("pass3\n");
+
+
     int numberOfVertices = nov;
-    int maxNumberOfEdges = noe;
 
+    // float percent2 = (float)noe/100;
+     int percent = ((numberOfVertices*(numberOfVertices-1))/2)*((float)noe/100);
+    // int percent1 = numberOfVertices*(numberOfVertices-1)/2;
+    // //printf("number of edges: %d\n", percent);
+    //     //printf("number of edges1: %d\n", percent1);
+    //     //printf("%f\n", percent2);
+    int maxNumberOfEdges = percent;
 
-  //  printf("pass\n");
+        //printf("%d\n", maxNumberOfEdges);
+
     createVertexList(g, numberOfVertices);
 
-    NedgeFirst(g);
+    NedgeFirst(g, maxNumberOfEdges);
 
-   // printf("pass1\n");
 
-    makeVisit(g);
+
+    for(int i=0; i<g->index; i++){
+ 	//printf("%d: ", g->vlist[i].vID);
+ 	struct vertex *tmp;
+ 	tmp = &g->vlist[i];
+ 	while(tmp->next != NULL){
+ 		tmp=tmp->next;
+ 		//printf("[%d] ",tmp->vID);
+ 	}
+ 	 //printf("\n");
+}
+
+
     int counter=0;
+    //printf("pass\n");
+
+   // //printf("pass1\n");
+if(maxNumberOfEdges-g->index>0){
+    makeVisit(g);
 	if(!checkConnectionTF(g))
 		{
 			while(!checkConnectionTF(g)){
@@ -480,22 +670,29 @@ int main(){
 				counter++;
 	}
 	}
-	//printf("%d\n", counter);
- //   printf("pass2\n");
+}
+    //printf("pass1\n");
+    //printf("counter for edge: %d\n", counter);
 
-//printf("%d\n", maxNumberOfEdges-g->index-counter );
+	////printf("%d\n", counter);
+ //   //printf("pass2\n");
+
+////printf("%d\n", maxNumberOfEdges-g->index-counter );
 if((maxNumberOfEdges-g->index-counter) >0){
 	int nedge = maxNumberOfEdges-g->index-counter;
-	//    printf("pass5\n");
+	//    //printf("pass5\n");
+	//printf("%d\n", nedge);
     edgeGenerator(g, nedge);
-   //     printf("pass6\n");
+   //     //printf("pass6\n");
 
 }
+    //printf("pass2\n");
+
 
     // g=createVertexList(numberOfVertices);
 
 for(int i=0; i<g->index; i++){
- 	printf("%d: ", g->vlist[i].vID);
+ 	printf("%d (%d): ", g->vlist[i].vID, g->vlist[i].weight);
  	struct vertex *tmp;
  	tmp = &g->vlist[i];
  	while(tmp->next != NULL){
@@ -505,12 +702,12 @@ for(int i=0; i<g->index; i++){
  	 printf("\n");
 }
 
-// printf("pass1\n");
+// //printf("pass1\n");
 // makeVisit(g);
 // for(int i=0; i<g->index;i++){
-// 	printf("%d\n", g->vlist[i].visited);
+// 	//printf("%d\n", g->vlist[i].visited);
 // }
-// printf("pass2\n");
+// //printf("pass2\n");
 
 
 // if(!checkConnectionTF(g))
@@ -523,14 +720,41 @@ for(int i=0; i<g->index; i++){
 
 
 // for(int i=0; i<g->index; i++){
-//  	printf("%d: ", g->vlist[i].vID);
+//  	//printf("%d: ", g->vlist[i].vID);
 //  	struct vertex *tmp;
 //  	tmp = &g->vlist[i];
 //  	while(tmp->next != NULL){
 //  		tmp=tmp->next;
-//  		printf("[%d] ",tmp->vID);
+//  		//printf("[%d] ",tmp->vID);
 //  	}
-//  	 printf("\n");
+//  	 //printf("\n");
 // }
+
+
+
+
+	char *filename;
+	filename = (char *)malloc(sizeof(char) * 20);
+
+	snprintf(filename, 20, "v%de%d.txt", numberOfVertices, maxNumberOfEdges);
+
+		FILE * Output;
+	     Output = fopen(filename, "w+");
+
+
+for(int i=0; i<g->index; i++){
+ 	fprintf(Output, "%d (%d): ", g->vlist[i].vID, g->vlist[i].weight);
+ 	struct vertex *tmp;
+ 	tmp = &g->vlist[i];
+ 	while(tmp->next != NULL){
+ 		tmp=tmp->next;
+ 		fprintf(Output, "[%d] ",tmp->vID);
+ 	}
+ 	 fprintf(Output, "\n");
+}
+
+    fclose(Output);
+    free(filename);
+
     return 1;
 }
