@@ -304,13 +304,15 @@ void NedgeFirst(struct graph *g, int maxNumberOfEdges){
 		struct vertex *temp1 = (struct vertex *)malloc(sizeof(struct vertex));
 		struct vertex *temp2 = (struct vertex *)malloc(sizeof(struct vertex));
 
+
+		int Rweight = rand()%(g->index+1);
 		temp1->vID=linkvertex;
-		temp1->weight = 0;
+		temp1->weight = Rweight;
 		temp1->next = NULL;
 		temp1->visited=0;
 
 		temp2->vID=eIndex;
-		temp2->weight = 0;
+		temp2->weight = Rweight;
 		temp2->next = NULL;
 		temp2->visited=0;
 		findLast(g, eIndex, temp1);
@@ -391,12 +393,14 @@ void edgeGenerator(struct graph *g, int nedge){
 		struct vertex *temp1 = (struct vertex *)malloc(sizeof(struct vertex));
 		struct vertex *temp2 = (struct vertex *)malloc(sizeof(struct vertex));
 
+
+		int Rweight = rand()%(g->index+1);
 		temp1->vID=linkvertex1;
-		temp1->weight=0;
+		temp1->weight=Rweight;
 		temp1->next=NULL;
 		temp1->visited=0;
 		temp2->vID=linkvertex2;
-		temp2->weight=0;
+		temp2->weight=Rweight;
 		temp2->next=NULL;
 		temp2->visited=0;
 		findLast(g, linkvertex1, temp2);
@@ -592,12 +596,18 @@ void checkConnection(struct graph *g, int numberOfVertices){
 
 
 
+	int Rweight= rand()%(g->index+1);
+
+
+
+
+
 	temp1->vID=groupA[linkvertex1];
-	temp1->weight=0;
+	temp1->weight=Rweight;
 	temp1->next=NULL;
 	temp1->visited=0;
 	temp2->vID=groupB[linkvertex2];
-	temp2->weight=0;
+	temp2->weight=Rweight;
 	temp2->next=NULL;
 	temp2->visited=0;
 
@@ -692,12 +702,12 @@ if((maxNumberOfEdges-g->index-counter) >0){
     // g=createVertexList(numberOfVertices);
 
 for(int i=0; i<g->index; i++){
- 	printf("%d (%d): ", g->vlist[i].vID, g->vlist[i].weight);
+ 	printf("%d: ", g->vlist[i].vID);
  	struct vertex *tmp;
  	tmp = &g->vlist[i];
  	while(tmp->next != NULL){
  		tmp=tmp->next;
- 		printf("[%d] ",tmp->vID);
+ 		printf("[%d](%d) ",tmp->vID, tmp->weight);
  	}
  	 printf("\n");
 }
@@ -743,12 +753,12 @@ for(int i=0; i<g->index; i++){
 
 
 for(int i=0; i<g->index; i++){
- 	fprintf(Output, "%d (%d): ", g->vlist[i].vID, g->vlist[i].weight);
+ 	fprintf(Output, "%d: ", g->vlist[i].vID);
  	struct vertex *tmp;
  	tmp = &g->vlist[i];
  	while(tmp->next != NULL){
  		tmp=tmp->next;
- 		fprintf(Output, "[%d] ",tmp->vID);
+ 		fprintf(Output, "[%d](%d) ",tmp->vID, tmp->weight);
  	}
  	 fprintf(Output, "\n");
 }
