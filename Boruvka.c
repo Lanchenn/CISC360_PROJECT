@@ -166,6 +166,26 @@ Graph* createGraph(int V, int E)
 // Driver program to test above functions
 int main()
 {
+	
+		Graph* graph = (Graph*)malloc(sizeof(Graph));
+    //converter("v10e9.txt", graph);  //20%
+    converter("v10e22.txt", graph); //50%
+    //converter("v10e45.txt", graph); //100%
+    //converter("v20e38.txt", graph); //20%
+    //converter("v20e95.txt", graph); //50%
+    //converter("v20e190.txt", graph); //100%
+	
+	
+		boruvkaMST(graph);
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
     /* Let us create following weighted graph
      10
      0--------1
@@ -173,7 +193,7 @@ int main()
      6|   5\   |15
      |      \ |
      2--------3
-     4       */
+     4       
     int V = 4;  // Number of vertices in graph
     int E = 5;  // Number of edges in graph
     Graph* graph = createGraph(V, E);
@@ -202,9 +222,9 @@ int main()
     // add edge 2-3
     graph->edge[4].src = 2;
     graph->edge[4].dest = 3;
-    graph->edge[4].weight = 4;
+    graph->edge[4].weight = 4;*/
     
-    boruvkaMST(graph);
+    //boruvkaMST(graph);
     
     return 0;
 }
