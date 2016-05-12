@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <ctype.h>
 
 //#include <omp.h>
 
@@ -51,96 +51,126 @@ struct subset
 
 // Functions and Method For GraphGenerator Converter
 //__________________________________________________________________________
-/*bool isNotInEdge(int child){
-		int edgeIndex = 0;
-		for(edgeIndex, edgeIndex < edge; edgeIndex++){
-			  if(a){
-			  	
-			  }
-				agraph->edge[edgeIndex].src = ;
-		}
-}*/
 
 // Read from txt file and generate a graph
-Graph* converter(char* filename)
+void converter(char* filename, Graph* agraph)
 {
 		// dealing with Vertex and Edge in Graph
-		Graph* agraph = (Graph*)malloc(sizeof(Graph));
+		//Graph* agraph = (Graph*)malloc(sizeof(Graph));
 		int i = 0;
 		char cha;
 		char* temp = (char*)malloc(sizeof(char) * 10);
+
 		int numVertex;
 		int numEdge;
 		int iindex = 0;
-		for(i = 0; i< (sizeof(filename) / sizeof(filename[0])); i++){
+
+		//printf("%lu\n", (sizeof(filename) / sizeof(filename[0])));
+		for(i = 0; i < (sizeof(filename) / sizeof(filename[0])) && iindex < 10; i++){
+		
 				cha = filename[i];
 				if(cha == 'v'){
-					 
+				
 				}else if(cha == 'e'){
 						numVertex = atoi(temp);
-						temp = NULL;
+						temp[0] = 0;
+						iindex = 0;
+						
 				}else if(cha == '.'){
 						numEdge = atoi(temp);
-						temp = NULL;
-				}else if(cha <= 57 && cha >= 48){
+						
+				}else if(isdigit(cha)){
 						temp[iindex] = cha;
 						iindex++;
 				}
 		}
+		
+		
+		//printf("%d  ", numVertex);
+		//printf("%d\n", numEdge);
 		agraph->V = numVertex;
 		agraph->E = numEdge;
 		agraph->edge = (Edge*)malloc(sizeof(Edge) * numEdge);
 		
 	  FILE *myf;
-	  myf = fopen(filename,"w");
+	  myf = fopen(filename,"r");
 		//ifstream myf;
     //myf.open(filename);
-    
+    //printf("pass\n");
 
-    char x;
+    int x;
     char* line = (char*)malloc(sizeof(char) * 10);
-    int parent = 0;
+    int parent = -1;
     int child, wei;
     int index = 0;
     int jindex = 0;
     //while (!myf.eof()) { // change the origin file to one element each line
-    while(myf != NULL) {
-    	  x = fgetc(myf);
-        //x = myf.get();
-        if(x == ':'){
-        		parent ++;
-        		line = NULL;
-        }else if(x == ']'){
-        		//int child;
-        		child = atoi(line);
-        		line = NULL;
-        		//child = (int)NULL;
-        }else if(x ==')'){
-        		//int wei; 
-        		wei = atoi(line);
-        		line = NULL;
-        		//wei = (int)NULL;
-        		
-        		// create new Edge
-        		if(parent < child){
-        				Edge e; //= (Edge*)malloc(sizeof(Edge));
-        				e.src = parent;
-        				e.dest = child;
-        				e.weight = wei;
-        		
-        				agraph->edge[index] = e;
-        				index++;
+    int h, k;
+    if(myf == NULL){
+    	  printf("Cannot open the File.\n");
+    }else {
+    		do {
+    			  x = getc (myf);
+    			  
+    			  
+    			  if(isdigit(x)){
+        				line[jindex] = x;
+        				jindex++;
+        				//printf("pass  %c\n", line[index]);
+        		}else if(x == ':'){
+        				//line[0] = '\0';   ///////for loop
+        				for(h = 0; h <10; h++){
+        						line[h] = '\0';
+        				}
+        				jindex = 0;
+        				parent++;
+        		}else if(x  == ']'){
+        				child = atoi(line);
+        				//line[0] = '\0';
+        				for(h = 0; h <10; h++){
+        						line[h] = '\0';
+        				}
+        				
+        				jindex = 0;
+        		}else if(x  == ')'){
+        				wei = atoi(line);
+								
+								if(child > parent){
+										//printf(":%d, %d, %d\n", parent, child, wei);  ////cun  edge
+										//Edge e = (Edge)malloc(sizeof(Edge));
+        						//e.src = parent;
+        						//e.dest = child;
+        						//e.weight = wei;
+        						
+        						agraph->edge[index].src = parent;
+        						agraph->edge[index].dest = child;
+        						agraph->edge[index].weight = wei;
+        						
+        						printf(" %d:%d, %d, %d\n", index, agraph->edge[index].src, agraph->edge[index].dest, 
+        																																			agraph->edge[index].weight);
+        						index++;
+							  }
+							
+								
+								child = 0;
+								wei = 0;
+        				
+        				//line[0] = '\0';
+        				
+        				for(h = 0; h <10; h++){
+        						line[h] = '\0';
+        				}
+        				jindex = 0;
         		}
         		
-        }else if(x <= 57 && x >= 48){
-        		line[jindex] = x;
-        		jindex++;
-        }
+    		}while(x != EOF);
     }
+    
+    fclose(myf);
     
     free(temp);
     free(line);
-    return agraph;
+    //return agraph;
 }
 
 
@@ -165,7 +195,9 @@ int main()
 //    int V = 4;  // Number of vertices in graph
 //    int E = 5;  // Number of edges in graph
 
-			Graph* graph = converter("v10e22.txt");
+			Graph* graph = (Graph*)malloc(sizeof(Graph));
+			converter("v1000e499500.txt", graph);
+			printf("pass");
 			printf("you Vert %d\n", graph->V);
 			printf("yoo Edge %d\n", graph->E);
 			printf("\n");
@@ -173,8 +205,8 @@ int main()
 			int num = graph->E;
 			int i = 0;
 			for(i = 0; i < num; i++){
-					printf("%d: %d, %d, %d\n", i, graph->edge[i].src, graph->edge[i].dest, graph->edge[i].weight);
-			}
+					//printf(": %d, %d, %d\n", graph->edge[i].src, graph->edge[i].dest, graph->edge[i].weight);
+			} 
 //    
 //    
 //    // add edge 0-1

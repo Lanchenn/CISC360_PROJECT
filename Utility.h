@@ -52,83 +52,110 @@ struct spanningTree
   Edge* existingedgeList;
 }; typedef struct spanningTree spanningTree;
 
+
+
 // Functions and Method For GraphGenerator Converter
 //__________________________________________________________________________
-/*bool isNotInEdge(int child){
-		int edgeIndex = 0;
-		for(edgeIndex, edgeIndex < edge; edgeIndex++){
-			  if(a){
-			  	
-			  }
-				agraph->edge[edgeIndex].src = ;
-		}
-}*/
-
 // Read from txt file and generate a graph
-Graph* converter(string filename)
+void converter(char* filename, Graph* agraph)
 {
 		// dealing with Vertex and Edge in Graph
-		Graph* agraph = (Graph*)malloc(sizeof(Graph));
+		//Graph* agraph = (Graph*)malloc(sizeof(Graph));
 		int i = 0;
 		char cha;
-		string temp;
+		char* temp = (char*)malloc(sizeof(char) * 10);
+
 		int numVertex;
 		int numEdge;
-		for(i; filename[i] != '\0'; i++){
+		int iindex = 0;
+
+		//printf("%lu\n", (sizeof(filename) / sizeof(filename[0])));
+		for(i = 0; i < (sizeof(filename) / sizeof(filename[0])) && iindex < 10; i++){
+		
 				cha = filename[i];
 				if(cha == 'v'){
-					 
+				
 				}else if(cha == 'e'){
 						numVertex = atoi(temp);
-						temp = "";
+						temp[0] = 0;
+						iindex = 0;
+						
 				}else if(cha == '.'){
 						numEdge = atoi(temp);
-						temp = "";
-				}else if(cha <= 57 && cha >= 48){
-						temp += cha;
+						
+				}else if(isdigit(cha)){
+						temp[iindex] = cha;
+						iindex++;
 				}
 		}
+		
+		
 		agraph->V = numVertex;
 		agraph->E = numEdge;
-		agraph->edge = (Edge)malloc(sizeof(Edge) * numEdge);
+		agraph->edge = (Edge*)malloc(sizeof(Edge) * numEdge);
 		
-	
-		ifstream myf;
-    myf.open(filename);
-    
-    string line;
-    char x;
-    string line;
-    int parent = 0;
+	  FILE *myf;
+	  myf = fopen(filename,"r");
+    //printf("pass\n");
+
+    int x;
+    char* line = (char*)malloc(sizeof(char) * 10);
+    int parent = -1;
+    int child, wei;
     int index = 0;
-    while (!myf.eof()) { // change the origin file to one element each line
-        x = myf.get();
-        if(x == ':'){
-        		parent ++;
-        		line = "";
-        }else if(x == ']'){
-        		int child;
-        		child = atoi(line);
-        		line = "";
-        }else if(x ==')'){
-        		int wei; 
-        		wei = atoi(line);
-        		line = "";
-        		
-        		// create new Edge
-        		if(parent < child){
-        				Edge e = (Edge)malloc(sizeof(Edge));
-        				e->src = parent;
-        				e->dest = child;
-        				e->weight = wei;
-        		
-        				agraph->edge[index] = e;
+    int jindex = 0;
+    //while (!myf.eof()) { // change the origin file to one element each line
+    
+    if(myf == NULL){
+    	  printf("Cannot open the File.\n");
+    }else {
+    		do {
+    			  x = getc (myf);
+    			  
+    			  
+    			  if(isdigit(x)){
+        				line[jindex] = x;
+        				jindex++;
+        				//printf("pass  %c\n", line[index]);
+        		}else if(x == ':'){
+        				line[0] = '\0';   ///////for loop
+        				jindex = 0;
+        				parent++;
+        		}else if(x  == ']'){
+        				child = atoi(line);
+        				line[0] = '\0';
+        				jindex = 0;
+        		}else if(x  == ')'){
+        				wei = atoi(line);
+								
+								if(child > parent){
+										//printf(":%d, %d, %d\n", parent, child, wei);  ////cun  edge
+        						
+        						agraph->edge[index].src = parent;
+        						agraph->edge[index].dest = child;
+        						agraph->edge[index].weight = wei;
+        						
+        						printf(" %d:%d, %d, %d\n", index, agraph->edge[index].src, agraph->edge[index].dest, 
+        						agraph->edge[index].weight);
+        						index++;
+							  }
+							
+								
+								child = 0;
+								wei = 0;
+        				
+        				line[0] = '\0';
+        				jindex = 0;
         		}
         		
-        }else if(x <= 57 && x >= 48){
-        		line += x;
-        }
+    		}while(x != EOF);
     }
+    
+    fclose(myf);
+    
+    free(temp);
+    free(line);
+    //return agraph;*/
 }
 
 
