@@ -481,9 +481,9 @@ int main(){
  
     // g = malloc(sizeof(struct graph));
     int nov, noe;
-    printf("type number of vertices u want: \n");
+    printf("Enter number of vertices: \n");
     scanf("%d", &nov);
-    printf("type percentage of edges u want: \n");
+    printf("Enter density: \n");
     scanf("%d", &noe);
   //  //printf("pass3\n");
 
