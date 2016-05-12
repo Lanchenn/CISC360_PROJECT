@@ -70,7 +70,7 @@ void converter(char* filename, Graph* agraph)
 		int iindex = 0;
 
 		//printf("%lu\n", (sizeof(filename) / sizeof(filename[0])));
-		for(i = 0; i < (sizeof(filename) / sizeof(filename[0])) && iindex < 10; i++){
+		for(i = 0; i < (sizeof(filename) / sizeof(filename[0])) && iindex < 20; i++){
 		
 				cha = filename[i];
 				if(cha == 'v'){
@@ -90,12 +90,16 @@ void converter(char* filename, Graph* agraph)
 		}
 		
 		
+		//printf("%d  ", numVertex);
+		//printf("%d\n", numEdge);
 		agraph->V = numVertex;
 		agraph->E = numEdge;
 		agraph->edge = (Edge*)malloc(sizeof(Edge) * numEdge);
 		
 	  FILE *myf;
 	  myf = fopen(filename,"r");
+		//ifstream myf;
+    //myf.open(filename);
     //printf("pass\n");
 
     int x;
@@ -105,7 +109,7 @@ void converter(char* filename, Graph* agraph)
     int index = 0;
     int jindex = 0;
     //while (!myf.eof()) { // change the origin file to one element each line
-    
+    int h, k;
     if(myf == NULL){
     	  printf("Cannot open the File.\n");
     }else {
@@ -118,25 +122,36 @@ void converter(char* filename, Graph* agraph)
         				jindex++;
         				//printf("pass  %c\n", line[index]);
         		}else if(x == ':'){
-        				line[0] = '\0';   ///////for loop
+        				//line[0] = '\0';   ///////for loop
+        				for(h = 0; h <10; h++){
+        						line[h] = '\0';
+        				}
         				jindex = 0;
         				parent++;
         		}else if(x  == ']'){
         				child = atoi(line);
-        				line[0] = '\0';
+        				//line[0] = '\0';
+        				for(h = 0; h <10; h++){
+        						line[h] = '\0';
+        				}
+        				
         				jindex = 0;
         		}else if(x  == ')'){
         				wei = atoi(line);
 								
 								if(child > parent){
 										//printf(":%d, %d, %d\n", parent, child, wei);  ////cun  edge
+										//Edge e = (Edge)malloc(sizeof(Edge));
+        						//e.src = parent;
+        						//e.dest = child;
+        						//e.weight = wei;
         						
         						agraph->edge[index].src = parent;
         						agraph->edge[index].dest = child;
         						agraph->edge[index].weight = wei;
         						
         						printf(" %d:%d, %d, %d\n", index, agraph->edge[index].src, agraph->edge[index].dest, 
-        						agraph->edge[index].weight);
+        																																			agraph->edge[index].weight);
         						index++;
 							  }
 							
@@ -144,7 +159,11 @@ void converter(char* filename, Graph* agraph)
 								child = 0;
 								wei = 0;
         				
-        				line[0] = '\0';
+        				//line[0] = '\0';
+        				
+        				for(h = 0; h <10; h++){
+        						line[h] = '\0';
+        				}
         				jindex = 0;
         		}
         		
@@ -155,7 +174,7 @@ void converter(char* filename, Graph* agraph)
     
     free(temp);
     free(line);
-    //return agraph;*/
+    //return agraph;
 }
 
 

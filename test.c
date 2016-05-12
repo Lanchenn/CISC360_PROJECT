@@ -66,7 +66,7 @@ void converter(char* filename, Graph* agraph)
 		int iindex = 0;
 
 		//printf("%lu\n", (sizeof(filename) / sizeof(filename[0])));
-		for(i = 0; i < (sizeof(filename) / sizeof(filename[0])) && iindex < 10; i++){
+		for(i = 0; i < (sizeof(filename) / sizeof(filename[0])) && iindex < 20; i++){
 		
 				cha = filename[i];
 				if(cha == 'v'){
