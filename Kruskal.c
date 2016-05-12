@@ -17,23 +17,6 @@
  *                      algorithms-set-2-kruskals-minimum-spanning-tree-mst/
  */
 
-// Structure
-//__________________________________________________________________________
-// a structure to represent a weighted edge in graph
-/*
-struct Edge {
-    int src, dest, weight;
-};
-struct Graph {
-    int V, E;
-    struct Edge* edge;
-};
-struct subset {
-    int parent;
-    int rank;
-};
-*/
-
 
 // Functions and Methond for SEARCH
 //__________________________________________________________________________

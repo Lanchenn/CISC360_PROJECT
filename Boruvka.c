@@ -17,24 +17,6 @@
  */
 
 
-// Structure
-//__________________________________________________________________________
-// a structure to represent a weighted edge in graph
-/*
-struct Edge {
-    int src, dest, weight;
-};
-struct Graph {
-    int V, E;
-    struct Edge* edge;
-};
-struct subset {
-    int parent;
-    int rank;
-};
-*/
-
-
 // Functions and Method for SEARCH
 //__________________________________________________________________________
 // Function prototypes for union-find (These functions are defined
