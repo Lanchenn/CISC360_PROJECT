@@ -17,7 +17,6 @@
  */
 
 
-
 // Structure
 //__________________________________________________________________________
 // a structure to represent a weighted edge in graph

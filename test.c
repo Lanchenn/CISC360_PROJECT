@@ -1,8 +1,10 @@
-#ifndef UTILITY_H_   /* Include guard */
-#define UTILITY_H_
+//#ifndef UTILITY_H_   /* Include guard */
+//#define UTILITY_H_
 
 #include <stdio.h>
 #include <stdlib.h>
+
+
 //#include <omp.h>
 
 /**
@@ -46,11 +48,6 @@ struct subset
     int rank;
 }; typedef struct subset subset;
 
-struct spanningTree
-{
-  int V,E;
-  Edge* existingedgeList;
-}; typedef struct spanningTree spanningTree;
 
 // Functions and Method For GraphGenerator Converter
 //__________________________________________________________________________
@@ -65,70 +62,85 @@ struct spanningTree
 }*/
 
 // Read from txt file and generate a graph
-Graph* converter(string filename)
+Graph* converter(char* filename)
 {
 		// dealing with Vertex and Edge in Graph
 		Graph* agraph = (Graph*)malloc(sizeof(Graph));
 		int i = 0;
 		char cha;
-		string temp;
+		char* temp = (char*)malloc(sizeof(char) * 10);
 		int numVertex;
 		int numEdge;
-		for(i; filename[i] != '\0'; i++){
+		int iindex = 0;
+		for(i = 0; i< (sizeof(filename) / sizeof(filename[0])); i++){
 				cha = filename[i];
 				if(cha == 'v'){
 					 
 				}else if(cha == 'e'){
 						numVertex = atoi(temp);
-						temp = "";
+						temp = NULL;
 				}else if(cha == '.'){
 						numEdge = atoi(temp);
-						temp = "";
+						temp = NULL;
 				}else if(cha <= 57 && cha >= 48){
-						temp += cha;
+						temp[iindex] = cha;
+						iindex++;
 				}
 		}
 		agraph->V = numVertex;
 		agraph->E = numEdge;
-		agraph->edge = (Edge)malloc(sizeof(Edge) * numEdge);
+		agraph->edge = (Edge*)malloc(sizeof(Edge) * numEdge);
 		
-	
-		ifstream myf;
-    myf.open(filename);
+	  FILE *myf;
+	  myf = fopen(filename,"w");
+		//ifstream myf;
+    //myf.open(filename);
     
-    string line;
+
     char x;
-    string line;
+    char* line = (char*)malloc(sizeof(char) * 10);
     int parent = 0;
+    int child, wei;
     int index = 0;
-    while (!myf.eof()) { // change the origin file to one element each line
-        x = myf.get();
+    int jindex = 0;
+    //while (!myf.eof()) { // change the origin file to one element each line
+    while(myf != NULL) {
+    	  x = fgetc(myf);
+        //x = myf.get();
         if(x == ':'){
         		parent ++;
-        		line = "";
+        		line = NULL;
         }else if(x == ']'){
-        		int child;
+        		//int child;
         		child = atoi(line);
-        		line = "";
+        		line = NULL;
+        		//child = (int)NULL;
         }else if(x ==')'){
-        		int wei; 
+        		//int wei; 
         		wei = atoi(line);
-        		line = "";
+        		line = NULL;
+        		//wei = (int)NULL;
         		
         		// create new Edge
         		if(parent < child){
-        				Edge e = (Edge)malloc(sizeof(Edge));
-        				e->src = parent;
-        				e->dest = child;
-        				e->weight = wei;
+        				Edge e; //= (Edge*)malloc(sizeof(Edge));
+        				e.src = parent;
+        				e.dest = child;
+        				e.weight = wei;
         		
         				agraph->edge[index] = e;
+        				index++;
         		}
         		
         }else if(x <= 57 && x >= 48){
-        		line += x;
+        		line[jindex] = x;
+        		jindex++;
         }
     }
+    
+    free(temp);
+    free(line);
+    return agraph;
 }
 
 
@@ -138,8 +150,10 @@ Graph* converter(string filename)
 // Main
 //__________________________________________________________________________
 // Driver program to test above functions
-//int main()
-//{
+int main()
+{
+		
+	
 //    /* Let us create following weighted graph
 //     10
 //     0--------1
@@ -150,7 +164,17 @@ Graph* converter(string filename)
 //     4       */
 //    int V = 4;  // Number of vertices in graph
 //    int E = 5;  // Number of edges in graph
-//    struct Graph* graph = createGraph(V, E);
+
+			Graph* graph = converter("v10e22.txt");
+			printf("you Vert %d\n", graph->V);
+			printf("yoo Edge %d\n", graph->E);
+			printf("\n");
+			
+			int num = graph->E;
+			int i = 0;
+			for(i = 0; i < num; i++){
+					printf("%d: %d, %d, %d\n", i, graph->edge[i].src, graph->edge[i].dest, graph->edge[i].weight);
+			}
 //    
 //    
 //    // add edge 0-1
@@ -180,8 +204,8 @@ Graph* converter(string filename)
 //    
 //    boruvkaMST(graph);
     
-//    return 0;
-//}
+    return 0;
+}
 
 
 
@@ -221,4 +245,4 @@ struct subset
 
 
 
-#endif /* UTILITY_H_ */
+//#endif /* UTILITY_H_ */
