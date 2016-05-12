@@ -9,9 +9,9 @@
  * Group Member: Lan Chen, Jessica Chen, Xiaomeng Chen and Zhanglong Peng
  *
  * __________________________________________________________________________
- * PART FIVE: 
- * This Random Graph generator should generate a complete graph
- * with given density and vertex number.
+ * PART FIVE: Graph Structure, Helper Function and GraphGenerator Converter
+ * This class has  all the utility for other algorithms,
+ * Also includs the converter of Random Graph Generator.
  *
  */
 
@@ -22,7 +22,7 @@
 struct Edge
 {
     int src, dest, weight;
-};
+}; typedef struct Edge Edge;
 
 // a structure to represent a connected, undirected
 // and weighted graph as a collection of edges.
@@ -36,19 +36,38 @@ struct Graph
     // from src to dest is also edge from dest
     // to src. Both are counted as 1 edge here.
     Edge* edge;
-};
+}; typedef struct Graph Graph;
 
 // A structure to represent a subset for union-find
 struct subset
 {
     int parent;
     int rank;
+}; typedef struct subset subset;
+
+
+// Functions and Method For GraphGenerator Converter
+//__________________________________________________________________________
+//R GraphGenerator Structure
+/*struct vertex{
+    struct vertex *next;
+    int vID;
+    int weight;
+    int visited;
 };
 
+struct graph{
+//    struct vertex *vertices[MAXV];
+    struct vertex *vlist;
+    int index;// index+1 will be the number of vertices
+//    int nvertices;
+//    int line;
+};*/
 
-// Functions and Method For Random Graph Generator
-//__________________________________________________________________________
-
+Graph* converter(Graph* g){
+	
+	
+}
 
 
 
@@ -57,8 +76,8 @@ struct subset
 // Main
 //__________________________________________________________________________
 // Driver program to test above functions
-int main()
-{
+//int main()
+//{
 //    /* Let us create following weighted graph
 //     10
 //     0--------1
@@ -99,8 +118,42 @@ int main()
 //    
 //    boruvkaMST(graph);
     
-    return 0;
-}
+//    return 0;
+//}
+
+
+
+///Do NOT edit this part
+// Structure
+//__________________________________________________________________________
+// a structure to represent a weighted edge in graph
+/*
+struct Edge
+{
+    int src, dest, weight;
+}; typedef struct Edge Edge;
+
+// a structure to represent a connected, undirected and weighted graph
+struct Graph
+{
+    // V-> Number of vertices, E-> Number of edges
+    int V, E;
+    
+    // graph is represented as an array of edges. Since the graph is
+    // undirected, the edge from src to dest is also edge from dest
+    // to src. Both are counted as 1 edge here.
+    struct Edge* edge;
+}; typedef struct Graph Graph;
+
+// A structure to represent a subset for union-find
+struct subset
+{
+    int parent;
+    int rank;
+}; typedef struct subset subset;
+*/
+
+
 
 
 
