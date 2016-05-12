@@ -63,7 +63,7 @@ void converter(char* filename, Graph* agraph)
 		//Graph* agraph = (Graph*)malloc(sizeof(Graph));
 		int i = 0;
 		char cha;
-		char* temp = (char*)malloc(sizeof(char) * 10);
+		char* temp = (char*)malloc(sizeof(char) * 20);
 
 		int numVertex;
 		int numEdge;
@@ -172,8 +172,8 @@ void converter(char* filename, Graph* agraph)
     
     fclose(myf);
     
-    free(temp);
-    free(line);
+//    free(temp);
+//    free(line);
     //return agraph;
 }
 
