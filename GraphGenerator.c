@@ -5,167 +5,10 @@
 #define MAX_VERTICES 30
 #define MAX_EDGES 10
 #define MAX_weight 30
- ////////////////////////////////////////////////////
-// struct Queue
-// {
-//   int capacity;
-//   int size;
-//   int front;
-//   int rear;
-//   struct vertex *vertices[MAXV];
-// };
-
-
-// struct Queue * createQueue(int maxElements)
-// {
-//   /* Create a Queue */
-//   struct Queue *Q;
-//   Q = malloc(sizeof(struct Queue));
-//   /* Initialise its properties */
-//   for (int i=0; i<maxElements;i++) {
-//     Q->vertices[i] = NULL;
-//   }
-//   Q->size = 0;
-//   Q->capacity = maxElements;
-//   Q->front = 0;
-//   Q->rear = -1;
-//   /* Return the pointer */
-//   return Q;
-// }
-// struct vertex * Dequeue(struct Queue *Q)
-// {
-//   /* If Queue size is zero then it is empty. So we cannot pop */
-//   if(Q->size==0)
-//     {
-//       //printf("Queue is Empty\n");
-//       return NULL;
-//     }
-//   /* Removing an element is equivalent to incrementing index of front by one */
-//   else
-//     {
-//       int x = Q->front;
-//       Q->size--;
-//       Q->front++;
-//       return Q->vertices[x];
-//       /* As we fill elements in circular fashion */
-//       if(Q->front==Q->capacity)
-// 	{
-// 	  Q->front=0;
-// 	}
-//     }
-//   return NULL;
-// }
-// void Enqueue(struct Queue *Q,struct vertex *v)
-// {
-//   /* If the Queue is full, we cannot push an element into it as there is no space for it.*/
-//   if(Q->size == Q->capacity)
-//     {
-//       //printf("Queue is Full\n");
-//     }
-//   else
-//     {
-//       Q->size++;
-//       Q->rear = Q->rear + 1;
-//       /* As we fill the queue in circular fashion */
-//       if(Q->rear == Q->capacity)
-// 	{
-// 	  Q->rear = 0;
-// 	}
-//       /* Insert the element in its rear side */ 
-//       Q->vertices[Q->rear] = v;
-//     }
-//   return;
-// }
-
-// bool qIsEmpty(struct Queue *Q){
-//   return (Q->size == 0);
-// }
 
 
 
 
-// /////////////////////////////////////////////////////
-
-
-// struct Queue
-// {
-//   int capacity;
-//   int size;
-//   int front;
-//   int rear;
-//   struct vertex *vertices[MAXV];
-// };
-
-
-// struct Queue * createQueue(int maxElements)
-// {
-//   /* Create a Queue */
-//   struct Queue *Q;
-//   Q = malloc(sizeof(struct Queue));
-//   /* Initialise its properties */
-//   for (int i=0; i<maxElements;i++) {
-//     Q->vertices[i] = NULL;
-//   }
-//   Q->size = 0;
-//   Q->capacity = maxElements;
-//   Q->front = 0;
-//   Q->rear = -1;
-//   /* Return the pointer */
-//   return Q;
-// }
-// struct vertex * Dequeue(struct Queue *Q)
-// {
-//   /* If Queue size is zero then it is empty. So we cannot pop */
-//   if(Q->size==0)
-//     {
-//       //printf("Queue is Empty\n");
-//       return NULL;
-//     }
-//   /* Removing an element is equivalent to incrementing index of front by one */
-//   else
-//     {
-//       int x = Q->front;
-//       Q->size--;
-//       Q->front++;
-//       return Q->vertices[x];
-//       /* As we fill elements in circular fashion */
-//       if(Q->front==Q->capacity)
-// 	{
-// 	  Q->front=0;
-// 	}
-//     }
-//   return NULL;
-// }
-// void Enqueue(struct Queue *Q,struct vertex *v)
-// {
-//   /* If the Queue is full, we cannot push an element into it as there is no space for it.*/
-//   if(Q->size == Q->capacity)
-//     {
-//       //printf("Queue is Full\n");
-//     }
-//   else
-//     {
-//       Q->size++;
-//       Q->rear = Q->rear + 1;
-//       /* As we fill the queue in circular fashion */
-//       if(Q->rear == Q->capacity)
-// 	{
-// 	  Q->rear = 0;
-// 	}
-//       /* Insert the element in its rear side */ 
-//       Q->vertices[Q->rear] = v;
-//     }
-//   return;
-// }
-
-// bool qIsEmpty(struct Queue *Q){
-//   return (Q->size == 0);
-// }
-
-
-
-
-//、/////////////////////////////////////////////////////
 
 struct vertex{
     struct vertex *next;
@@ -185,8 +28,7 @@ struct graph{
 void createVertexList(struct graph *g, int numberOfVertices){
 	// struct graph *g;
 		srand ( time(NULL) );
-	g->index=numberOfVertices;
-	g->vlist = (struct vertex *)malloc(sizeof(struct vertex) * numberOfVertices);
+		g->index=numberOfVertices;
 	for(int i=0; i<numberOfVertices; i++){
 		g->vlist[i].next= NULL;
 		g->vlist[i].vID=i;
@@ -327,6 +169,9 @@ void edgeGenerator(struct graph *g, int nedge){
 //	for(int i=1; i<= g->index; i++){
 	int eIndex=0;
 		////printf("pass2\n");
+		
+				int edgeID=0;
+
 	while(eIndex < nedge){
 		int linkvertex1 = (rand()%(g->index));
 		int linkvertex2 = (rand()%(g->index));
@@ -338,6 +183,7 @@ void edgeGenerator(struct graph *g, int nedge){
 
 					//printf("in edgeGenerator link1 before: %d\n", linkvertex1);
 		//printf("in edgeGenerator link2 before:  %d\n", linkvertex2);
+
 
 		while(linkvertex1==linkvertex2 || checkDuplicate(g , linkvertex1, linkvertex2)|| findFullness(g,linkvertex1)||findFullness(g,linkvertex2)){
 		//	//printf("%d\n", checkDuplicate(g , linkvertex1, linkvertex2));
@@ -421,6 +267,9 @@ void edgeGenerator(struct graph *g, int nedge){
 
 
 		//printf("nodeinsert \n");
+    printf("now generating edge number: %d\n", edgeID);
+    edgeID++;
+
 	}
 }
 	
@@ -625,8 +474,11 @@ void checkConnection(struct graph *g, int numberOfVertices){
 
 
 int main(){
+	
+	printf("pass\n");
 
     struct graph *g;
+ 
     // g = malloc(sizeof(struct graph));
     int nov, noe;
     printf("type number of vertices u want: \n");
@@ -648,9 +500,15 @@ int main(){
 
         //printf("%d\n", maxNumberOfEdges);
 
+		g= (struct graph*)malloc(sizeof(struct graph));
+		g->vlist = (struct vertex *)malloc(sizeof(struct vertex) * numberOfVertices);
+	printf("pass1\n");
+
     createVertexList(g, numberOfVertices);
+	printf("pass2\n");
 
     NedgeFirst(g, maxNumberOfEdges);
+	printf("pass3\n");
 
 
 
@@ -665,11 +523,13 @@ int main(){
  	 //printf("\n");
 }
 
+	printf("pass4\n");
 
     int counter=0;
     //printf("pass\n");
 
    // //printf("pass1\n");
+   
 if(maxNumberOfEdges-g->index>0){
     makeVisit(g);
 	if(!checkConnectionTF(g))
@@ -681,6 +541,9 @@ if(maxNumberOfEdges-g->index>0){
 	}
 	}
 }
+
+	printf("pass5\n");
+
     //printf("pass1\n");
     //printf("counter for edge: %d\n", counter);
 
@@ -688,16 +551,19 @@ if(maxNumberOfEdges-g->index>0){
  //   //printf("pass2\n");
 
 ////printf("%d\n", maxNumberOfEdges-g->index-counter );
+
 if((maxNumberOfEdges-g->index-counter) >0){
 	int nedge = maxNumberOfEdges-g->index-counter;
 	//    //printf("pass5\n");
 	//printf("%d\n", nedge);
     edgeGenerator(g, nedge);
+
    //     //printf("pass6\n");
 
 }
     //printf("pass2\n");
 
+	printf("pass6\n");
 
     // g=createVertexList(numberOfVertices);
 
@@ -711,6 +577,7 @@ for(int i=0; i<g->index; i++){
  	}
  	 printf("\n");
 }
+	printf("pass7\n");
 
 // //printf("pass1\n");
 // makeVisit(g);
