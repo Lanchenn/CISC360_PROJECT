@@ -198,7 +198,7 @@ int main()
     graph->edge[4].dest = 3;
     graph->edge[4].weight = 4;*/
     
-    KruskalMST(graph);
+    //KruskalMST(graph);
     
     return 0;
 }
