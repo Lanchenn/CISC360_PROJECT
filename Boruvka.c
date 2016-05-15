@@ -85,8 +85,8 @@ void boruvkaMST(Graph* graph)
         
         // Consider the above picked cheapest edges and add them
         // to MST
-        printf("===============================================\n");
-	      printf("Following are the edges in the constructed MST\n");
+        //printf("===============================================\n");
+	      //printf("Following are the edges in the constructed MST\n");
         for (int j=0; j<V; j++)
         {
             // Check if cheapest for current set exists
