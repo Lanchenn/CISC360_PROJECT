@@ -32,7 +32,7 @@ int myComp(const void* a, const void* b)
 {
     Edge* a1 = (Edge*)a;
     Edge* b1 = (Edge*)b;
-    return a1->weight > b1->weight;
+    return a1->weight - b1->weight;
 }
 
 // The main function to construct MST using Kruskal's algorithm
@@ -52,6 +52,7 @@ void KruskalMST(Graph* graph)
     // If we are not allowed to change the given graph, we can create a copy of
     // array of edges
     qsort(graph->edge, graph->E, sizeof(graph->edge[0]), myComp);
+<<<<<<< Updated upstream
     
     //
     int u;
@@ -59,6 +60,11 @@ void KruskalMST(Graph* graph)
     		printf("::%d\n", graph->edge[u].weight);
     }
     
+=======
+    //     for(i =0; i < graph->E; i++ ){
+    // 		printf("%d:  src:%d  dest:%d   weight:%d\n", i, graph->edge[i].src, graph->edge[i].dest, graph->edge[i].weight);
+    // }
+>>>>>>> Stashed changes
     // Allocate memory for creating V ssubsets
     subset *subsets = (subset*) malloc(V * sizeof(subset));
     
@@ -162,7 +168,7 @@ int main()
     
     Graph* graph = (Graph*)malloc(sizeof(Graph));//createGraph(V, E);
     //converter("v10e9.txt", graph);  //20%
-    converter("v10e22.txt", graph); //50%
+    converter("v10e45.txt", graph); //50%
     
 //    int i;
 //    for(i =0; i < graph->E; i++ ){
