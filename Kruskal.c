@@ -39,7 +39,11 @@ int myComp(const void* a, const void* b)
 void KruskalMST(Graph* graph)
 {
     int V = graph->V;
-    Edge result[V];	// Tnis will store the resultant MST
+    int E = graph->E;
+    //Edge result[V];	
+    
+    Edge* result = (Edge*)malloc(V * sizeof(Edge));
+    // Tnis will store the resultant MST
     int e = 0;	// An index variable, used for result[]
     int i = 0;  // An index variable, used for sorted edges
     int MSTWeight = 0;		// the total weight of  Minimum Spanning Tree
@@ -49,8 +53,18 @@ void KruskalMST(Graph* graph)
     // array of edges
     qsort(graph->edge, graph->E, sizeof(graph->edge[0]), myComp);
     
+    //
+    int u;
+    for(u = 0; u < graph->E; u++){
+    		printf("::%d\n", graph->edge[u].weight);
+    }
+    
     // Allocate memory for creating V ssubsets
     subset *subsets = (subset*) malloc(V * sizeof(subset));
+    
+    
+    
+    
     
     // Create V subsets with single elements
     for (int v = 0; v < V; ++v)
@@ -150,10 +164,10 @@ int main()
     //converter("v10e9.txt", graph);  //20%
     converter("v10e22.txt", graph); //50%
     
-    int i;
-    for(i =0; i < graph->E; i++ ){
-    		printf("%d:  src:%d  dest:%d   weight:%d\n", i, graph->edge[i].src, graph->edge[i].dest, graph->edge[i].weight);
-    }
+//    int i;
+//    for(i =0; i < graph->E; i++ ){
+//    		printf("%d:  src:%d  dest:%d   weight:%d\n", i, graph->edge[i].src, graph->edge[i].dest, graph->edge[i].weight);
+//    }
     
     //converter("v10e45.txt", graph); //100%
     //converter("v20e38.txt", graph); //20%
@@ -161,7 +175,7 @@ int main()
     //converter("v20e190.txt", graph); //100%
     //converter("v1000e499500.txt", graph); //100%
     
-    //KruskalMST(graph);
+    KruskalMST(graph);
     
     
     

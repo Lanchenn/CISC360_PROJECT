@@ -84,7 +84,7 @@ void boruvkaMST(Graph* graph)
                     edge[cheapest[set1]].weight > edge[i].weight)
                     cheapest[set1] = i;
                 
-                if (cheapest[set2] == -1 ||
+                if (cheapest[set1] == -1 ||
                     edge[cheapest[set2]].weight > edge[i].weight)
                     cheapest[set2] = i;
             }
@@ -180,12 +180,12 @@ int main()
 	
 		Graph* graph = (Graph*)malloc(sizeof(Graph));
     //converter("v10e9.txt", graph);  //20%
-    converter("v10e22.txt", graph); //50%
+    //converter("v10e22.txt", graph); //50%
     //converter("v10e45.txt", graph); //100%
     //converter("v20e38.txt", graph); //20%
     //converter("v20e95.txt", graph); //50%
     //converter("v20e190.txt", graph); //100%
-    //converter("v1000e499500.txt", graph); //100%
+    converter("v1000e499500.txt", graph); //100%
 	
 	
 		boruvkaMST(graph);
