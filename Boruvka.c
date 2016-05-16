@@ -51,6 +51,10 @@ void boruvkaMST(Graph* graph)
     int numTrees = V;
     int MSTweight = 0;
     
+    
+    
+    printf("===============================================\n");
+	  printf("Following are the edges in the constructed MST\n");
     // Keep combining components (or sets) until all
     // compnentes are not combined into single MST.
     while (numTrees > 1)
@@ -85,8 +89,8 @@ void boruvkaMST(Graph* graph)
         
         // Consider the above picked cheapest edges and add them
         // to MST
-        printf("===============================================\n");
-	      printf("Following are the edges in the constructed MST\n");
+        //printf("===============================================\n");
+	      //printf("Following are the edges in the constructed MST\n");
         for (int j=0; j<V; j++)
         {
             // Check if cheapest for current set exists
