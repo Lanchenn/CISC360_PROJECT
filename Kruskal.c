@@ -148,14 +148,20 @@ int main()
     
     Graph* graph = (Graph*)malloc(sizeof(Graph));//createGraph(V, E);
     //converter("v10e9.txt", graph);  //20%
-    //converter("v10e22.txt", graph); //50%
+    converter("v10e22.txt", graph); //50%
+    
+    int i;
+    for(i =0; i < graph->E; i++ ){
+    		printf("%d:  src:%d  dest:%d   weight:%d\n", i, graph->edge[i].src, graph->edge[i].dest, graph->edge[i].weight);
+    }
+    
     //converter("v10e45.txt", graph); //100%
     //converter("v20e38.txt", graph); //20%
     //converter("v20e95.txt", graph); //50%
     //converter("v20e190.txt", graph); //100%
-    converter("v1000e499500.txt", graph); //100%
+    //converter("v1000e499500.txt", graph); //100%
     
-    KruskalMST(graph);
+    //KruskalMST(graph);
     
     
     

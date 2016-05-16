@@ -73,7 +73,7 @@ void converter(const char* filename, Graph* agraph)
 
 	  int shiba;
 	  shiba = strlen(filename);
-		printf("%d\n", shiba);
+		//printf("%d\n", shiba);
 		//printf("%lu\n", sizeof(filename));
 		//printf("%lu\n", (sizeof(filename) / sizeof(char)));
 		//sizeof(filename) / sizeof(filename[0]))
@@ -157,8 +157,8 @@ void converter(const char* filename, Graph* agraph)
         						agraph->edge[index].dest = child;
         						agraph->edge[index].weight = wei;
         						
-        						printf(" %d:%d, %d, %d\n", index, agraph->edge[index].src, agraph->edge[index].dest, 
-        																																			agraph->edge[index].weight);
+        						//printf(" %d:%d, %d, %d\n", index, agraph->edge[index].src, agraph->edge[index].dest, 
+        										//agraph->edge[index].weight);
         						index++;
 							  }
 							

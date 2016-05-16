@@ -58,7 +58,7 @@ void boruvkaMST(Graph* graph)
     // Keep combining components (or sets) until all
     // compnentes are not combined into single MST.
     while (numTrees > 1)
-    {
+    {			printf("numoftree: %d\n", numTrees);
         // Traverse through all edges and update
         // cheapest of every component
         for (int i=0; i<E; i++)
@@ -71,7 +71,10 @@ void boruvkaMST(Graph* graph)
             // If two corners of current edge belong to
             // same set, ignore current edge
             if (set1 == set2)
-                continue;
+            {
+            	
+            }
+                //continue;
             
             // Else check if current edge is closer to previous
             // cheapest edges of set1 and set2
@@ -81,7 +84,7 @@ void boruvkaMST(Graph* graph)
                     edge[cheapest[set1]].weight > edge[i].weight)
                     cheapest[set1] = i;
                 
-                if (cheapest[set1] == -1 ||
+                if (cheapest[set2] == -1 ||
                     edge[cheapest[set2]].weight > edge[i].weight)
                     cheapest[set2] = i;
             }
@@ -99,8 +102,11 @@ void boruvkaMST(Graph* graph)
                 int s1 = find(subsets, edge[cheapest[j]].src);
                 int s2 = find(subsets, edge[cheapest[j]].dest);
                 
-                if (s1 == s2)
-                    continue;
+                if (s1 == s2){
+                	
+                }
+                	
+                    //continue;
                 MSTweight += edge[cheapest[j]].weight;
                 printf("Edge: %d -- %d (Weight: %d)\n",
                        edge[cheapest[j]].src, edge[cheapest[j]].dest,
@@ -108,7 +114,7 @@ void boruvkaMST(Graph* graph)
                 
                 // Do a union of set1 and set2 and decrease number
                 // of trees
-                printf("pass\n");
+                //printf("pass\n");
                 Union(subsets, s1, s2);
                 numTrees--;
             }
@@ -179,6 +185,7 @@ int main()
     //converter("v20e38.txt", graph); //20%
     //converter("v20e95.txt", graph); //50%
     //converter("v20e190.txt", graph); //100%
+    //converter("v1000e499500.txt", graph); //100%
 	
 	
 		boruvkaMST(graph);
@@ -191,7 +198,7 @@ int main()
 	
 	
 	/*
-    /* Let us create following weighted graph
+     Let us create following weighted graph
      10
      0--------1
      |  \     |
