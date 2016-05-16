@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 //#include <omp.h>
 
@@ -53,20 +54,25 @@ struct subset
 //__________________________________________________________________________
 
 // Read from txt file and generate a graph
-void converter(char* filename, Graph* agraph)
+void converter(const char* filename, Graph* agraph)
 {
 		// dealing with Vertex and Edge in Graph
 		//Graph* agraph = (Graph*)malloc(sizeof(Graph));
 		int i = 0;
 		char cha;
-		char* temp = (char*)malloc(sizeof(char) * 10);
+		char* temp = (char*)malloc(sizeof(char) * 20);
 
 		int numVertex;
 		int numEdge;
 		int iindex = 0;
 
-		//printf("%lu\n", (sizeof(filename) / sizeof(filename[0])));
-		for(i = 0; i < (sizeof(filename) / sizeof(filename[0])) && iindex < 20; i++){
+	  int shiba;
+	  shiba = strlen(filename);
+		printf("%d\n", shiba);
+		//printf("%lu\n", sizeof(filename));
+		//printf("%lu\n", (sizeof(filename) / sizeof(char)));
+		//sizeof(filename) / sizeof(filename[0]))
+		for(i = 0; i < shiba && iindex < 20; i++){
 		
 				cha = filename[i];
 				if(cha == 'v'){
@@ -182,18 +188,6 @@ void converter(char* filename, Graph* agraph)
 // Driver program to test above functions
 int main()
 {
-		
-	
-//    /* Let us create following weighted graph
-//     10
-//     0--------1
-//     |  \     |
-//     6|   5\   |15
-//     |      \ |
-//     2--------3
-//     4       */
-//    int V = 4;  // Number of vertices in graph
-//    int E = 5;  // Number of edges in graph
 
 			Graph* graph = (Graph*)malloc(sizeof(Graph));
 			converter("v1000e499500.txt", graph);
@@ -207,72 +201,9 @@ int main()
 			for(i = 0; i < num; i++){
 					//printf(": %d, %d, %d\n", graph->edge[i].src, graph->edge[i].dest, graph->edge[i].weight);
 			} 
-//    
-//    
-//    // add edge 0-1
-//    graph->edge[0].src = 0;
-//    graph->edge[0].dest = 1;
-//    graph->edge[0].weight = 10;
-//    
-//    // add edge 0-2
-//    graph->edge[1].src = 0;
-//    graph->edge[1].dest = 2;
-//    graph->edge[1].weight = 6;
-//    
-//    // add edge 0-3
-//    graph->edge[2].src = 0;
-//    graph->edge[2].dest = 3;
-//    graph->edge[2].weight = 5;
-//    
-//    // add edge 1-3
-//    graph->edge[3].src = 1;
-//    graph->edge[3].dest = 3;
-//    graph->edge[3].weight = 15;
-//    
-//    // add edge 2-3
-//    graph->edge[4].src = 2;
-//    graph->edge[4].dest = 3;
-//    graph->edge[4].weight = 4;
-//    
-//    boruvkaMST(graph);
     
     return 0;
 }
-
-
-
-///Do NOT edit this part
-// Structure
-//__________________________________________________________________________
-// a structure to represent a weighted edge in graph
-/*
-struct Edge
-{
-    int src, dest, weight;
-}; typedef struct Edge Edge;
-
-// a structure to represent a connected, undirected and weighted graph
-struct Graph
-{
-    // V-> Number of vertices, E-> Number of edges
-    int V, E;
-    
-    // graph is represented as an array of edges. Since the graph is
-    // undirected, the edge from src to dest is also edge from dest
-    // to src. Both are counted as 1 edge here.
-    struct Edge* edge;
-}; typedef struct Graph Graph;
-
-// A structure to represent a subset for union-find
-struct subset
-{
-    int parent;
-    int rank;
-}; typedef struct subset subset;
-*/
-
-
-
 
 
 

@@ -85,8 +85,8 @@ void boruvkaMST(Graph* graph)
         
         // Consider the above picked cheapest edges and add them
         // to MST
-        //printf("===============================================\n");
-	      //printf("Following are the edges in the constructed MST\n");
+        printf("===============================================\n");
+	      printf("Following are the edges in the constructed MST\n");
         for (int j=0; j<V; j++)
         {
             // Check if cheapest for current set exists
@@ -104,6 +104,7 @@ void boruvkaMST(Graph* graph)
                 
                 // Do a union of set1 and set2 and decrease number
                 // of trees
+                printf("pass\n");
                 Union(subsets, s1, s2);
                 numTrees--;
             }
