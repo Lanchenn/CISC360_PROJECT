@@ -102,6 +102,7 @@ int findAdjListCount(Graph* graph, int src, int* outList, size_t outSize)
 // using Prim's algorithm
 void PrimMST(Graph* graph)
 {
+    int MSTWeight = 0;
     int V = graph->V;// Get the number of vertices in graph
     int E = graph->E;// Get the number of edges in graph
     int parent[V];   // Array to store constructed MST
@@ -112,6 +113,11 @@ void PrimMST(Graph* graph)
  
     // Initialize min heap with all vertices. Key value of
     // all vertices (except 0th vertex) is initially infinite
+
+    // print edges of MST
+    printf("===============================================\n");
+    printf("Following are the edges in the constructed MST\n");
+
     for (int v = 1; v < V; ++v)
     {
         parent[v] = -1;
@@ -155,124 +161,27 @@ void PrimMST(Graph* graph)
                 key[v] = findWeight(graph,u,v);
                 parent[v] = u;
                 decreaseKey(minHeap, v, key[v]);
-            }
+	    }
 	 }
+	 MSTWeight += minHeapNode->key;
     }
- 
-    // print edges of MST
-    printArr(parent, V);
+    int n;
+    for (n=1;n<V;n++) {
+       printf("Edge: %d -- %d (Weight: %d)\n",parent[n],n,key[n]);
+    }
+    printf("Total Weight: %d\n", MSTWeight);
+    printf("===============================================\n");
 }
 
 // Driver program to test above functions
 int main()
 {
-    /* Let us create following weighted graph
-             10
-        0--------1
-        |  \     |
-       6|   5\   |15
-        |      \ |
-        2--------3
-            4       */
-    int V = 4;  // Number of vertices in graph
-    int E = 5;  // Number of edges in graph
-    struct Graph* graph = createGraph(V, E);
- 
- 
-    // add edge 0-1
-    graph->edge[0].src = 0;
-    graph->edge[0].dest = 1;
-    graph->edge[0].weight = 10;
- 
-    // add edge 0-2
-    graph->edge[1].src = 0;
-    graph->edge[1].dest = 2;
-    graph->edge[1].weight = 6;
- 
-    // add edge 0-3
-    graph->edge[2].src = 0;
-    graph->edge[2].dest = 3;
-    graph->edge[2].weight = 5;
- 
-    // add edge 1-3
-    graph->edge[3].src = 1;
-    graph->edge[3].dest = 3;
-    graph->edge[3].weight = 15;
- 
-    // add edge 2-3
-    graph->edge[4].src = 2;
-    graph->edge[4].dest = 3;
-    graph->edge[4].weight = 4;  
-
   // Let us create the graph given in above fugure
-/*    
+    
     Graph* graph = (Graph*)malloc(sizeof(Graph));
-    converter("v10e9.txt", graph); //50%  
-    PrimMST(graph);
-*/
-    /*
-    int V = 9;
-    int E = 14;
-    Graph* graph = createGraph(V,E);
-
-    graph->edge[0].src = 0;
-    graph->edge[0].dest = 1;
-    graph->edge[0].weight = 4;
-
-    graph->edge[1].src = 0;
-    graph->edge[1].dest = 7;
-    graph->edge[1].weight = 8;
-
-    graph->edge[2].src = 1;
-    graph->edge[2].dest = 2;
-    graph->edge[2].weight = 8;
-
-    graph->edge[3].src = 1;
-    graph->edge[3].dest = 7;
-    graph->edge[3].weight = 11;
-
-    graph->edge[4].src = 2;
-    graph->edge[4].dest = 3;
-    graph->edge[4].weight = 7;
-
-    graph->edge[5].src = 2;
-    graph->edge[5].dest = 8;
-    graph->edge[5].weight = 2;
-
-    graph->edge[6].src = 2;
-    graph->edge[6].dest = 5;
-    graph->edge[6].weight = 4;
-
-    graph->edge[7].src = 3;
-    graph->edge[7].dest = 4;
-    graph->edge[7].weight = 9;
-
-    graph->edge[8].src = 3;
-    graph->edge[8].dest = 5;
-    graph->edge[8].weight = 14;
-
-    graph->edge[9].src = 4;
-    graph->edge[9].dest = 5;
-    graph->edge[9].weight = 10;
-
-    graph->edge[10].src = 5;
-    graph->edge[10].dest = 6;
-    graph->edge[10].weight = 2;
-
-    graph->edge[11].src = 6;
-    graph->edge[11].dest = 7;
-    graph->edge[11].weight = 1;
-
-    graph->edge[12].src = 6;
-    graph->edge[12].dest = 8;
-    graph->edge[12].weight = 6;
-
-    graph->edge[13].src = 7;
-    graph->edge[13].dest = 8;
-    graph->edge[13].weight = 7;
-  
-    PrimMST(graph);
-    */    
+//    converter("v10e22.txt", graph); //50%  
+//    converter("v10e45.txt",graph); 
+    converter("v40e156.txt",graph);
     PrimMST(graph);
     return 0;
 }
