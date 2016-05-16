@@ -48,14 +48,6 @@ struct subset
     int rank;
 }; typedef struct subset subset;
 
-struct spanningTree
-{
-  int V,E;
-  Edge* existingedgeList;
-}; typedef struct spanningTree spanningTree;
-
-
-
 // Functions and Method For GraphGenerator Converter
 //__________________________________________________________________________
 // Read from txt file and generate a graph

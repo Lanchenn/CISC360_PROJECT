@@ -24,12 +24,37 @@ int findWeight(Graph* graph,int src, int dest)
 	Edge* edgeList = graph->edge;
 	for (i=0;i<graph->E;i++) {
 		if ((edgeList[i].src==src && edgeList[i].dest==dest)||(edgeList[i].src==dest && edgeList[i].dest==src)) 
-{
+                {
 			weight = edgeList[i].weight;	
 		}
 	}
 	return weight;
 }
+
+/*
+AdjList* findAdjList(Graph* graph,int src) 
+{
+        int i;
+
+	Edge* edgeList = graph->edge;
+	AdjList* newList = (AdjList*)malloc(sizeof(AdjList));
+	newList->list[0] = src;
+	int count = 1;
+
+	for (i=0;i<graph->E;i++) {
+		if (edgeList[i].src==src) {
+			newList->list[count] = edgeList[i].dest;
+       			count++;
+		}
+		else if (edgeList[i].dest==src) {
+			newList->list[count] = edgeList[i].src;
+			count++;
+		}
+	}
+
+	newList->size = count;
+	return newList;
+}*/
 
 // Find adjacency list of vertices
 int* findAdjList(Graph* graph,int src) 
@@ -50,7 +75,29 @@ int* findAdjList(Graph* graph,int src)
 	}
 	return adjList;
 }
-  
+
+/* returns the count of elements that would have been written to outList assuming outSize was large enough */
+int findAdjListCount(Graph* graph, int src, int* outList, size_t outSize)
+{
+  Edge* edgeList = graph->edge;
+  size_t k = 1;
+  if (outSize > 0)
+    outList[0] = src;
+  for (size_t i=0; i < graph->E; i++) {
+    if (edgeList[i].src==src) {
+      if (k < outSize)
+	outList[k] = edgeList[i].dest;
+      k++;
+    }
+    else if (edgeList[i].dest==src) {
+      if (k < outSize)
+	outList[k] = edgeList[i].src;
+      k++;
+    }
+  }
+  return k;
+}
+
 // The main function that constructs Minimum Spanning Tree (MST)
 // using Prim's algorithm
 void PrimMST(Graph* graph)
@@ -89,15 +136,17 @@ void PrimMST(Graph* graph)
         // Extract the vertex with minimum key value
         MinHeapNode* minHeapNode = extractMin(minHeap);
         int u = minHeapNode->v; // Store the extracted vertex number
-	// printf("%d\n",u);
         // Traverse through all adjacent vertices of u (the extracted
         // vertex) and update their key values
 	int i;
-        int* adjList = findAdjList(graph,u);
-        for (i=1;i<V;i++) 
+	int* adjList = findAdjList(graph,u);
+        int size = findAdjListCount(graph, u, NULL, 0);
+	//printf("%d->%d\n",adjList[0],adjList[1]);
+        //printf("%d\n",size);
+	for (i=1;i<size;i++) 
         {
 	    int v = adjList[i];
-	   
+	    // printf("%d\n",v);   
             // If v is not yet included in MST and weight of u-v is
             // less than key value of v, then update key value and
             // parent of v
@@ -107,7 +156,7 @@ void PrimMST(Graph* graph)
                 parent[v] = u;
                 decreaseKey(minHeap, v, key[v]);
             }
-        }
+	 }
     }
  
     // print edges of MST
@@ -117,12 +166,20 @@ void PrimMST(Graph* graph)
 // Driver program to test above functions
 int main()
 {
-    // Let us create the graph given in above fugure
-  //  int V = 9;
-  //  int E = 14;
-  //  Graph* graph = createGraph(V,E);
+    /* Let us create following weighted graph
+             10
+        0--------1
+        |  \     |
+       6|   5\   |15
+        |      \ |
+        2--------3
+            4       */
+    int V = 4;  // Number of vertices in graph
+    int E = 5;  // Number of edges in graph
+    struct Graph* graph = createGraph(V, E);
+ 
+ 
     // add edge 0-1
-    /*
     graph->edge[0].src = 0;
     graph->edge[0].dest = 1;
     graph->edge[0].weight = 10;
@@ -145,9 +202,19 @@ int main()
     // add edge 2-3
     graph->edge[4].src = 2;
     graph->edge[4].dest = 3;
-    graph->edge[4].weight = 4; 
-    */
-/*
+    graph->edge[4].weight = 4;  
+
+  // Let us create the graph given in above fugure
+/*    
+    Graph* graph = (Graph*)malloc(sizeof(Graph));
+    converter("v10e9.txt", graph); //50%  
+    PrimMST(graph);
+*/
+    /*
+    int V = 9;
+    int E = 14;
+    Graph* graph = createGraph(V,E);
+
     graph->edge[0].src = 0;
     graph->edge[0].dest = 1;
     graph->edge[0].weight = 4;
@@ -203,11 +270,10 @@ int main()
     graph->edge[13].src = 7;
     graph->edge[13].dest = 8;
     graph->edge[13].weight = 7;
-*/  
-    Graph* graph = (Graph*)malloc(sizeof(Graph));
-    converter("v10e22.txt", graph); //50%  
+  
     PrimMST(graph);
-    
+    */    
+    PrimMST(graph);
     return 0;
 }
 
